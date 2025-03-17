@@ -42,8 +42,8 @@ export class AppComponent {
       onCancelClicked: this.doNothing1
     }
 
-    this.dialogService.showConfirmDialog(this.confirmDialogViewModel);
-    //this.dialogService.showMessageDialog(this.messageDialogViewModel);
+    //this.dialogService.showConfirmDialog(this.confirmDialogViewModel);
+    this.dialogService.showMessageDialog(this.messageDialogViewModel);
   }
 
   doNothing1 = () => {
