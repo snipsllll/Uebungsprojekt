@@ -15,6 +15,7 @@ import {NgForOf} from '@angular/common';
   templateUrl: './taskboard.component.html',
   styleUrl: './taskboard.component.css'
 })
+
 export class TaskboardComponent {
   anforderungen = computed<IAnforderung[]>(() => {
     this.dataService.updated();
