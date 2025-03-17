@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {ConfirmDialogViewModel} from '../../../Models/ViewModels/ConfirmDialogViewModel';
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -7,5 +8,17 @@ import { Component } from '@angular/core';
   styleUrl: './confirm-dialog.component.css'
 })
 export class ConfirmDialogComponent {
+  @Input() viewModel?: ConfirmDialogViewModel;
 
+  constructor() {
+
+  }
+
+  onBtnConfirmClicked() {
+    this.viewModel?.onConfirmClicked();
+  }
+
+  onBtnCancelClicked() {
+    this.viewModel?.onCancelClicked();
+  }
 }
