@@ -11,14 +11,29 @@
   backdrop-filter: blur(10px);
 }
 
+textarea {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.title textarea {
+  font-weight: bold;
+}
+
 .dialog {
   position: fixed;
   font-family: Arial, sans-serif;
   background-color: #eaeaea;
   justify-content: center;
   align-items: flex-start;
-  width: calc(50% - 40px);
-  height: 34vh;
+  aspect-ratio: 1.5 / 1;
+  height: 37vh;
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
@@ -33,8 +48,10 @@
   border: 1px solid #e0e0e0;
   box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
   background-color: #f3f3f3;
-  padding: 5px;
-  font-weight: bold;
+  margin: 10px 0;
+  height: 5vh;
+  display: flex;
+  word-break: break-all;
 }
 .content {
   border-radius: 5px;
@@ -54,9 +71,9 @@
 }
 .buttons button {
   border-radius: 5px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #0E3D31;
   box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
-  background-color: #f3f3f3;
+  background-color: #29B290;
   padding: 5px 10px;
   cursor: pointer;
 }
