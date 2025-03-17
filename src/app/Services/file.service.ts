@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {IAnforderung} from '../Models/Interfaces/IAnforderung';
 import {TaskZustand} from '../Models/Enums/TaskZustand';
 
@@ -7,21 +7,42 @@ import {TaskZustand} from '../Models/Enums/TaskZustand';
 })
 export class FileService {
 
-  userLocalTestData = true;
+  fileName: string = 'savedText.txt';
+  userLocalTestData = false;
 
   constructor() {
 
   }
 
   loadData(): IAnforderung[] {
-    if(this.userLocalTestData) {
+    if (this.userLocalTestData) {
       return this.getLocalTestData();
+    }
+    try {
+      let savedText = localStorage.getItem('savedText');
+      if (savedText) {
+        return JSON.parse(savedText);
+      }
+    } catch (e) {
+      console.error('Fehler beim laden aus localStorage:', e);
     }
     return [];
   }
 
   saveData(data: IAnforderung[]) {
+    const blob = new Blob([JSON.stringify(data)], {type: 'text/plain'});
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = this.fileName;
+    a.click();
+    window.URL.revokeObjectURL(url);
 
+    try {
+      localStorage.setItem('savedText', JSON.stringify(data));
+    } catch (e) {
+      console.error('Fehler beim Speichern in localStorage:', e);
+    }
   }
 
   private getLocalTestData() {
