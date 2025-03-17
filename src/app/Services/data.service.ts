@@ -2,7 +2,6 @@ import {Injectable, signal} from '@angular/core';
 import {TaskZustand} from '../Models/Enums/TaskZustand';
 import {ITask} from '../Models/Interfaces/ITask';
 import {IAnforderung, IAnforderungData} from '../Models/Interfaces/IAnforderung';
-import {FileService} from './file.service';
 import {FireService} from './fire.service';
 
 @Injectable({
@@ -13,10 +12,11 @@ export class DataService {
   anforderungen: IAnforderung[] = [];
   updated = signal<number>(0);
 
-  constructor(private fileService: FileService, private fireService: FireService) {
-    this.anforderungen = this.fileService.loadData();
-    this.sendUpdate();
-    this.save(true);
+  constructor(private fireService: FireService) {
+    this.fireService.getDataFromServer().then(data => {
+      this.anforderungen = data;
+      this.sendUpdate();
+    });
   }
 
   addAnforderung(anforderungData: IAnforderungData) {
@@ -91,7 +91,6 @@ export class DataService {
   }
 
   private save(reload?: boolean) {
-    //this.fileService.saveData(this.anforderungen);
     console.log(this.anforderungen)
     this.fireService.saveDataOnServer(this.anforderungen).then(() => {
       if(reload) {

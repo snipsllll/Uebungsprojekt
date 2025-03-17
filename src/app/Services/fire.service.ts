@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { IAnforderung } from '../Models/Interfaces/IAnforderung';
 import { IFireData } from '../Models/Interfaces/IFireData';
 import { Firestore, collection, doc, getDocs, updateDoc, setDoc } from '@angular/fire/firestore';
+import {lastValueFrom} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,26 @@ export class FireService {
       }
     } catch (error) {
       console.error('Error while saving data on server:', error);
+    }
+  }
+
+  async getDataFromServer(): Promise<IAnforderung[]> {
+    console.log("...downloading fireData")
+
+    const collectionRef = collection(this.firestore, `data`);
+    try {
+      const querySnapshot = await getDocs(collectionRef);
+      if (querySnapshot.empty) {
+        console.warn(`No entries was found on server! Creating new Data!`);
+        return [];
+      }
+      const docSnap = querySnapshot.docs[0];
+      console.log('Successfully downloaded fireData.')
+      const data = docSnap.data() as IFireData;
+      return data.anforderungen as IAnforderung[];
+    } catch (error) {
+      console.error(`Error while downloading data from server!`, error);
+      return [];
     }
   }
 }
