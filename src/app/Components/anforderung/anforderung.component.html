@@ -1,6 +1,22 @@
 <div class="anforderung">
   <div class="anforderung__details">
+    <div class="anforderung__details-top">
+      <div class="anforderung__titel">
+        {{anforderung.data.title}}
+      </div>
+      <div class="anforderung__menu-button" (click)="onBtnMenuClicked()">
+        ...
+      </div>
 
+      <div class="anforderung__dropdown" *ngIf="isMenuVisible" [ngStyle]="{'top.px': dropdownPosition.y}">
+        <button (click)="onBtnEditClicked()">Bearbeiten</button>
+        <button (click)="onBtnDeleteClicked()">Löschen</button>
+        <div class="anforderung__menu-background" (click)="onMenuBackgroundClicked()"></div>
+      </div>
+    </div>
+    <div class="anforderung__beschreibung">
+      {{anforderung.data.beschreibung}}
+    </div>
   </div>
   <div class="anforderung__tasks-zustaende-wrapper">
     <div class="anforderung__tasks-todo anforderung__tasks-spalte">

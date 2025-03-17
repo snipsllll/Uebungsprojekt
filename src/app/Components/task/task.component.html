@@ -1,3 +1,18 @@
 <div class="task">
-  {{task.data.title}}
+  <div class="task__title" *ngIf="!isTitleInEditMode" (click)="isTitleInEditMode = true">
+    {{task.data.title !== "" ? task.data.title : "Neue Task"}}
+  </div>
+  <div class="task__title-edit-wrapper" *ngIf="isTitleInEditMode">
+    <input class="task__title-input" [(ngModel)]="task.data.title">
+    <div class="task__edit-background" (click)="onEditBackgroundClicked()"></div>
+  </div>
+
+
+  <div class="task__mitarbeiter" *ngIf="!isMitarbeiterInEditMode" (click)="isMitarbeiterInEditMode = true">
+    {{task.data.mitarbeiter !== "" ? task.data.mitarbeiter : "kein Mitarbeiter"}}
+  </div>
+  <div class="task__mitarbeiter-edit-wrapper" *ngIf="isMitarbeiterInEditMode">
+    <input class="task__mitarbeiter-input" [(ngModel)]="task.data.mitarbeiter">
+    <div class="task__edit-background" (click)="onEditBackgroundClicked()"></div>
+  </div>
 </div>

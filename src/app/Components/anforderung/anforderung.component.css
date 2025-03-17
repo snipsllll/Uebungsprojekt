@@ -10,7 +10,66 @@
 
 .anforderung__details {
   min-width: 300px;
+  max-width: 300px;
   border-right: 3px solid #e0e0e0;
+  padding: 10px;
+}
+
+.anforderung__details-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.anforderung__titel {
+  font-weight: bold;
+}
+
+.anforderung__menu-button {
+  cursor: pointer;
+}
+
+.anforderung__menu-button:hover {
+  font-weight: bold;
+}
+
+.anforderung__dropdown {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  z-index: 1000;
+  right: 0;
+  width: fit-content;
+}
+
+.anforderung__dropdown button {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  z-index: 1000;
+}
+
+.anforderung__dropdown button:hover {
+  background: #f0f0f0;
+}
+
+.anforderung__menu-background {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 990;
 }
 
 .anforderung__tasks-zustaende-wrapper {
@@ -50,4 +109,9 @@
   color: #f3f3f3;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.anforderung__add-button:hover {
+  font-size: 35px;
 }

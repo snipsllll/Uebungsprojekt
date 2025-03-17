@@ -4,6 +4,37 @@
   min-height: 50px;
   padding: 10px;
   display: flex;
+  flex-direction: column;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  min-width: 120px;
+  margin-bottom: 3px;
+}
+
+.task__title {
+  font-weight: bold;
+}
+
+.task__title-input {
+  position: relative;
+  z-index: 20;
+}
+
+.task__edit-background {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  top: 0;
+  left: 0;
+}
+
+.task__mitarbeiter-input {
+  position: relative;
+  z-index: 20;
+}
+
+.task__mitarbeiter-input {
+  position: relative;
+  z-index: 20;
 }

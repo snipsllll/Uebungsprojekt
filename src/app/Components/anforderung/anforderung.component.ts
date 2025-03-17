@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {TaskComponent} from '../task/task.component';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf, NgStyle} from '@angular/common';
 import {DialogService} from '../../Services/dialog.service';
 import {DataService} from '../../Services/data.service';
 import {IAnforderung} from '../../Models/Interfaces/IAnforderung';
@@ -12,7 +12,9 @@ import {TaskZustand} from '../../Models/Enums/TaskZustand';
   selector: 'app-anforderung',
   imports: [
     TaskComponent,
-    NgForOf
+    NgForOf,
+    NgIf,
+    NgStyle
   ],
   templateUrl: './anforderung.component.html',
   styleUrl: './anforderung.component.css'
@@ -20,6 +22,8 @@ import {TaskZustand} from '../../Models/Enums/TaskZustand';
 export class AnforderungComponent {
   @Input() anforderung!: IAnforderung;
   isMenuVisible: boolean = false;
+  dropdownVisible = false;
+  dropdownPosition = { x: 0, y: 0 };
 
   constructor(private dataService: DataService, private dialogService: DialogService) {
 
@@ -34,6 +38,7 @@ export class AnforderungComponent {
   }
 
   onBtnEditClicked() {
+    this.isMenuVisible = false;
     let anforderungDialogViewModel: AnforderungDialogViewModel = {
       anforderung: this.anforderung,
       onSaveClick: this.onEditSaveClicked,
@@ -43,6 +48,7 @@ export class AnforderungComponent {
   }
 
   onBtnDeleteClicked() {
+    this.isMenuVisible = false;
     let confirmDialogViewModel: ConfirmDialogViewModel = {
       title: "",
       beschreibung: "",
