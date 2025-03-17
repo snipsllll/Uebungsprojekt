@@ -43,7 +43,7 @@ export class AppComponent {
     }
 
     //this.dialogService.showConfirmDialog(this.confirmDialogViewModel);
-    this.dialogService.showMessageDialog(this.messageDialogViewModel);
+    //this.dialogService.showMessageDialog(this.messageDialogViewModel);
   }
 
   doNothing1 = () => {

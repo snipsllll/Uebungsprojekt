@@ -15,13 +15,13 @@
   right: 10px;
   width: 60px;
   height: 60px;
-  background-color: #0E3D31;
+  background-color: #e0e0e0;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 40px;
   font-weight: bold;
-  color: #f3f3f3;
+  color: #666666;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   cursor: pointer;
