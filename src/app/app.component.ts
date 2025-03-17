@@ -5,6 +5,12 @@ import {MessageDialogComponent} from './Components/Dialogs/message-dialog/messag
 import {ConfirmDialogComponent} from './Components/Dialogs/confirm-dialog/confirm-dialog.component';
 import {TaskboardComponent} from './Components/taskboard/taskboard.component';
 import {NgIf} from '@angular/common';
+import {AnforderungDialogViewModel} from './Models/ViewModels/AnforderungDialogViewModel';
+import {TaskZustand} from './Models/Enums/TaskZustand';
+import {IAnforderung} from './Models/Interfaces/IAnforderung';
+import {DataService} from './Services/data.service';
+import {MessageDialogViewModel} from './Models/ViewModels/MessageDialogViewModel';
+import {ConfirmDialogViewModel} from './Models/ViewModels/ConfirmDialogViewModel';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +27,63 @@ import {NgIf} from '@angular/common';
 export class AppComponent {
   title = 'Uebungsprojekt';
 
-  constructor(protected dialogService: DialogService) {
+  anforderungDialogViewModel: AnforderungDialogViewModel;
+  messageDialogViewModel: MessageDialogViewModel;
+  confirmDialogViewModel: ConfirmDialogViewModel;
+
+  constructor(protected dialogService: DialogService, private dataService: DataService) {
+    this.anforderungDialogViewModel = {
+      anforderung: {
+        id: 1,
+        data: {
+          title: "Neue Webseite erstellen",
+          beschreibung: "Eine moderne Webseite für das Unternehmen gestalten",
+          tasks: [
+            {
+              id: 1,
+              data: {
+                title: "Design entwerfen",
+                mitarbeiter: "Anna Müller",
+                zustand: TaskZustand.todo
+              }
+            },
+            {
+              id: 2,
+              data: {
+                title: "Inhalte schreiben",
+                mitarbeiter: "Max Schmidt",
+                zustand: TaskZustand.inProgress
+              }
+            }
+          ]
+        }
+      },
+      onCancelClick: this.doNothing1,
+      onSaveClick: this.doNothing2
+    }
+    this.messageDialogViewModel = {
+      title: "test titel message",
+      beschreibung: "test beschreibung message"
+    }
+    this.confirmDialogViewModel = {
+      title: "test titel message",
+      beschreibung: "test beschreibung message",
+      onConfirmClicked: this.doNothing1,
+      onCancelClicked: this.doNothing1
+    }
+
+    this.dialogService.showAnforderungDialog(this.anforderungDialogViewModel);
+    this.dialogService.showConfirmDialog(this.confirmDialogViewModel);
+    this.dialogService.showMessageDialog(this.messageDialogViewModel);
+  }
+
+  doNothing1 = () => {
+    this.dialogService.isConfirmDialogVisible = false;
+    this.dialogService.isMessageDialogVisible = false;
+    this.dialogService.isAnforderungDialogVisible = false;
+  }
+
+  doNothing2 = (anforderung: IAnforderung) => {
 
   }
 }
