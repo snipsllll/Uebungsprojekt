@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { IAnforderung } from '../Models/Interfaces/IAnforderung';
 import { IFireData } from '../Models/Interfaces/IFireData';
 import { Firestore, collection, doc, getDocs, updateDoc, setDoc } from '@angular/fire/firestore';
-import {lastValueFrom} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
