@@ -20,10 +20,12 @@ textarea {
   border-radius: 5px;
   resize: none;
   box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 .title textarea {
   font-weight: bold;
+  line-height: 165%;
 }
 
 .dialog {
@@ -48,7 +50,7 @@ textarea {
   border: 1px solid #e0e0e0;
   box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
   background-color: #f3f3f3;
-  margin: 10px 0;
+  margin-bottom: 7px;
   height: 5vh;
   display: flex;
   word-break: break-all;
@@ -58,7 +60,7 @@ textarea {
   border: 1px solid #e0e0e0;
   box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
   background-color: #f3f3f3;
-  margin: 10px 0;
+  margin-bottom: 7px;
   height: 25vh;
   display: flex;
   word-break: break-all;
@@ -66,14 +68,20 @@ textarea {
 
 .buttons {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: end;
   padding: 5px;
 }
 .buttons button {
+  font-weight: bold;
+  font-size: 14px;
+  height: 40px;
+  width: 120px;
   border-radius: 5px;
-  border: 1px solid #0E3D31;
-  box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
-  background-color: #29B290;
+  border: 1px solid #1F942A;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+  background-color: #1F942A;
   padding: 5px 10px;
   cursor: pointer;
+  margin-left: 10px;
+  color: #f3f3f3;
 }

@@ -1,4 +1,5 @@
 .task {
+  font-family: Arial, sans-serif;
   background-color: green;
   flex-grow: 1;
   min-height: 50px;
