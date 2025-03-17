@@ -1,14 +1,13 @@
-import {Injectable, signal} from '@angular/core';
-import {TaskZustand} from '../Models/Enums/TaskZustand';
-import {ITask} from '../Models/Interfaces/ITask';
-import {IAnforderung, IAnforderungData} from '../Models/Interfaces/IAnforderung';
-import {FireService} from './fire.service';
+import { Injectable, signal } from '@angular/core';
+import { TaskZustand } from '../Models/Enums/TaskZustand';
+import { ITask } from '../Models/Interfaces/ITask';
+import { IAnforderung, IAnforderungData } from '../Models/Interfaces/IAnforderung';
+import { FireService } from './fire.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-
   anforderungen: IAnforderung[] = [];
   updated = signal<number>(0);
 
@@ -23,19 +22,26 @@ export class DataService {
     let newAnforderung: IAnforderung = {
       id: this.getNextFreeAnforderungId(),
       data: anforderungData
-    }
+    };
 
     this.anforderungen.push(newAnforderung);
     this.save(true);
   }
 
   editAnforderung(anforderung: IAnforderung) {
-    this.anforderungen[this.anforderungen.findIndex(x => x.id === anforderung.id)] = anforderung;
+    const index = this.anforderungen.findIndex(x => x.id === anforderung.id);
+    if (index !== -1) {
+      this.anforderungen[index] = anforderung;
+      this.save(true);
+    }
   }
 
   deleteAnforderungById(id: number) {
-    this.anforderungen.splice(this.anforderungen.findIndex(x => x.id === id), 1);
-    this.save(true);
+    const index = this.anforderungen.findIndex(x => x.id === id);
+    if (index !== -1) {
+      this.anforderungen.splice(index, 1);
+      this.save(true);
+    }
   }
 
   addEmptyTaskToAnforderungByAnforderungId(anforderungId: number) {
@@ -46,54 +52,50 @@ export class DataService {
         mitarbeiter: "",
         zustand: TaskZustand.todo
       }
-    }
+    };
 
-    this.anforderungen.find(x => x.id === anforderungId)?.data.tasks.push(newTask);
-    this.save(true);
+    const anforderung = this.anforderungen.find(x => x.id === anforderungId);
+    if (anforderung) {
+      anforderung.data.tasks.push(newTask);
+      this.save(true);
+    }
   }
 
   editTask(editedTask: ITask) {
     let found = false;
-    this.anforderungen.forEach(anforderung => {
-      anforderung.data.tasks.forEach(task => {
-        if(task.id === task.id && !found) {
-          found = true;
-          let anforderungIndex = this.anforderungen.findIndex(x => x.id === anforderung.id);
-          let taskIndex = this.anforderungen[anforderungIndex]?.data.tasks.findIndex(x => x.id === task.id);
-          this.anforderungen[anforderungIndex].data.tasks[taskIndex] = editedTask;
-        }
-      })
-    })
 
-    this.save(true);
+    this.anforderungen.forEach(anforderung => {
+      anforderung.data.tasks.forEach((task, index) => {
+        if (task.id === editedTask.id && !found) {
+          found = true;
+
+          let anforderungIndex = this.anforderungen.findIndex(x => x.id === anforderung.id);
+          let taskIndex = this.anforderungen[anforderungIndex]?.data.tasks.findIndex(x => x.id === editedTask.id);
+
+          if (anforderungIndex !== -1 && taskIndex !== -1) {
+            this.anforderungen[anforderungIndex].data.tasks[taskIndex] = editedTask;
+            this.save(true);
+          }
+        }
+      });
+    });
   }
 
   private getNextFreeAnforderungId(): number {
-    let highestId = 1;
-    this.anforderungen.forEach(anforderung => {
-      if(anforderung.id > highestId) {
-        highestId = anforderung.id;
-      }
-    })
-    return highestId + 1;
+    if (this.anforderungen.length === 0) return 1;
+    return Math.max(...this.anforderungen.map(a => a.id), 0) + 1;
   }
 
   private getNextFreeTaskId(): number {
-    let highestId = 1;
-    this.anforderungen.forEach(anforderung => {
-      anforderung.data.tasks.forEach(task => {
-        if(task.id > highestId) {
-          highestId = task.id;
-        }
-      })
-    })
-    return highestId + 1;
+    let tasks = this.anforderungen.flatMap(a => a.data.tasks);
+    if (tasks.length === 0) return 1;
+    return Math.max(...tasks.map(t => t.id), 0) + 1;
   }
 
   private save(reload?: boolean) {
-    console.log(this.anforderungen)
+    console.log(this.anforderungen);
     this.fireService.saveDataOnServer(this.anforderungen).then(() => {
-      if(reload) {
+      if (reload) {
         this.sendUpdate();
       }
     });

@@ -7,6 +7,14 @@ import {IAnforderung} from '../../Models/Interfaces/IAnforderung';
 import {AnforderungDialogViewModel} from '../../Models/ViewModels/AnforderungDialogViewModel';
 import {ConfirmDialogViewModel} from '../../Models/ViewModels/ConfirmDialogViewModel';
 import {TaskZustand} from '../../Models/Enums/TaskZustand';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDropList,
+  CdkDropListGroup,
+  moveItemInArray,
+  transferArrayItem
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-anforderung',
@@ -14,7 +22,10 @@ import {TaskZustand} from '../../Models/Enums/TaskZustand';
     TaskComponent,
     NgForOf,
     NgIf,
-    NgStyle
+    NgStyle,
+    CdkDropList,
+    CdkDrag,
+    CdkDropListGroup
   ],
   templateUrl: './anforderung.component.html',
   styleUrl: './anforderung.component.css'
@@ -22,7 +33,6 @@ import {TaskZustand} from '../../Models/Enums/TaskZustand';
 export class AnforderungComponent {
   @Input() anforderung!: IAnforderung;
   isMenuVisible: boolean = false;
-  dropdownVisible = false;
   dropdownPosition = { x: 0, y: 0 };
 
   constructor(private dataService: DataService, private dialogService: DialogService) {
@@ -83,6 +93,36 @@ export class AnforderungComponent {
     this.dialogService.isConfirmDialogVisible = false;
   }
 
+  get todoTasks() {
+    return this.anforderung.data.tasks.filter(x => x.data.zustand === TaskZustand.todo);
+  }
+
+  get inProgressTasks() {
+    return this.anforderung.data.tasks.filter(x => x.data.zustand === TaskZustand.inProgress);
+  }
+
+  get doneTasks() {
+    return this.anforderung.data.tasks.filter(x => x.data.zustand === TaskZustand.done);
+  }
+
+  // Methode zum Verschieben von Tasks
+  dropTask(event: CdkDragDrop<any[]>, targetStatus: TaskZustand) {
+    if (event.previousContainer === event.container) {
+      // Falls das Element in der gleichen Liste bewegt wurde
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      // Falls das Element in eine andere Liste verschoben wurde
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+
+      // Task-Zustand aktualisieren
+      const movedTask = event.container.data[event.currentIndex];
+      movedTask.data.zustand = targetStatus;
+
+      // Task-Änderung in Firestore oder Backend speichern
+      this.dataService.editTask(movedTask);
+    }
+  }
+
   protected getTodoTasks() {
     return this.anforderung.data.tasks.filter(x => x.data.zustand === TaskZustand.todo);
   }
@@ -94,4 +134,6 @@ export class AnforderungComponent {
   protected getDoneTasks() {
     return this.anforderung.data.tasks.filter(x => x.data.zustand === TaskZustand.done);
   }
+
+  protected readonly TaskZustand = TaskZustand;
 }

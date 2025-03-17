@@ -2,11 +2,11 @@
   <div class="dialog">
     <div class="title">{{viewModel!.anforderung!.data.title}}</div>
     <div contenteditable="true" class="content">
-      <p [(ngModel)]="viewModel!.anforderung!.data.beschreibung"></p>
+      <p> {{viewModel!.anforderung!.data.beschreibung}} </p>
     </div>
     <div class="buttons">
-      <button class="speichern">speichern</button>
-      <button class="abbrechen">abbrechen</button>
+      <button class="speichern" (click)="onBtnSaveClicked()">speichern</button>
+      <button class="abbrechen" (click)="onBtnCancleClicked()">abbrechen</button>
     </div>
   </div>
 </div>

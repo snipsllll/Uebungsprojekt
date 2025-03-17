@@ -27,40 +27,10 @@ import {ConfirmDialogViewModel} from './Models/ViewModels/ConfirmDialogViewModel
 export class AppComponent {
   title = 'Uebungsprojekt';
 
-  anforderungDialogViewModel: AnforderungDialogViewModel;
   messageDialogViewModel: MessageDialogViewModel;
   confirmDialogViewModel: ConfirmDialogViewModel;
 
   constructor(protected dialogService: DialogService, private dataService: DataService) {
-    this.anforderungDialogViewModel = {
-      anforderung: {
-        id: 1,
-        data: {
-          title: "Neue Webseite erstellen",
-          beschreibung: "Eine moderne Webseite für das Unternehmen gestalten",
-          tasks: [
-            {
-              id: 1,
-              data: {
-                title: "Design entwerfen",
-                mitarbeiter: "Anna Müller",
-                zustand: TaskZustand.todo
-              }
-            },
-            {
-              id: 2,
-              data: {
-                title: "Inhalte schreiben",
-                mitarbeiter: "Max Schmidt",
-                zustand: TaskZustand.inProgress
-              }
-            }
-          ]
-        }
-      },
-      onCancelClick: this.doNothing1,
-      onSaveClick: this.doNothing2
-    }
     this.messageDialogViewModel = {
       title: "test titel message",
       beschreibung: "test beschreibung message"
@@ -72,9 +42,8 @@ export class AppComponent {
       onCancelClicked: this.doNothing1
     }
 
-    this.dialogService.showAnforderungDialog(this.anforderungDialogViewModel);
-    this.dialogService.showConfirmDialog(this.confirmDialogViewModel);
-    this.dialogService.showMessageDialog(this.messageDialogViewModel);
+    //this.dialogService.showConfirmDialog(this.confirmDialogViewModel);
+    //this.dialogService.showMessageDialog(this.messageDialogViewModel);
   }
 
   doNothing1 = () => {

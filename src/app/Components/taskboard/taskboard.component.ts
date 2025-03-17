@@ -19,6 +19,8 @@ import {NgForOf} from '@angular/common';
 export class TaskboardComponent {
   anforderungen = computed<IAnforderung[]>(() => {
     this.dataService.updated();
+    console.log(this.dataService.anforderungen);
+    console.log(this.dataService.anforderungen);
     return this.dataService.anforderungen;
   });
 
