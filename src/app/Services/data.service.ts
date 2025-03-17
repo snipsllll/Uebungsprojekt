@@ -3,6 +3,7 @@ import {TaskZustand} from '../Models/Enums/TaskZustand';
 import {ITask} from '../Models/Interfaces/ITask';
 import {IAnforderung, IAnforderungData} from '../Models/Interfaces/IAnforderung';
 import {FileService} from './file.service';
+import {FireService} from './fire.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,10 @@ export class DataService {
   anforderungen: IAnforderung[] = [];
   updated = signal<number>(0);
 
-  constructor(private fileService: FileService) {
+  constructor(private fileService: FileService, private fireService: FireService) {
     this.anforderungen = this.fileService.loadData();
     this.sendUpdate();
+    this.save(true);
   }
 
   addAnforderung(anforderungData: IAnforderungData) {
@@ -89,10 +91,13 @@ export class DataService {
   }
 
   private save(reload?: boolean) {
-    this.fileService.saveData(this.anforderungen);
-    if(reload) {
-      this.sendUpdate();
-    }
+    //this.fileService.saveData(this.anforderungen);
+    console.log(this.anforderungen)
+    this.fireService.saveDataOnServer(this.anforderungen).then(() => {
+      if(reload) {
+        this.sendUpdate();
+      }
+    });
   }
 
   private sendUpdate() {
