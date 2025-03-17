@@ -1,8 +1,10 @@
 <div class="overlay">
   <div class="dialog">
-    <div class="title">{{viewModel!.anforderung!.data.title}}</div>
-    <div contenteditable="true" class="content">
-      <p> {{viewModel!.anforderung!.data.beschreibung}} </p>
+    <div class="title">
+      <textarea [(ngModel)]="viewModel!.anforderung!.data.title"></textarea>
+    </div>
+    <div class="content">
+      <textarea [(ngModel)]="viewModel!.anforderung!.data.beschreibung"></textarea>
     </div>
     <div class="buttons">
       <button class="speichern" (click)="onBtnSaveClicked()">speichern</button>
