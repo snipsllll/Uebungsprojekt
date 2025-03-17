@@ -51,10 +51,7 @@ export class AnforderungDialogComponent {
     if(this.viewModel?.anforderung?.data.title !== this.newOrEditedAnforderung.data.title) {
       return true;
     }
-    if(this.viewModel?.anforderung?.data.beschreibung !== this.newOrEditedAnforderung.data.beschreibung) {
-      return true;
-    }
-    return false;
+    return this.viewModel?.anforderung?.data.beschreibung !== this.newOrEditedAnforderung.data.beschreibung;
   }
 
 }

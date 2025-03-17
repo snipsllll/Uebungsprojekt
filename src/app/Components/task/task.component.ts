@@ -15,8 +15,6 @@ export class TaskComponent {
 
   }
 
-  /*
-
   afterTaskChanged() {
     this.dataService.editTask(this.task);
   }
@@ -31,5 +29,5 @@ export class TaskComponent {
 
   onMitarbeiterChange() {
     this.afterTaskChanged();
-  }*/
+  }
 }
