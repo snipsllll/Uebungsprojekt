@@ -36,8 +36,8 @@ export class AppComponent {
       beschreibung: "test beschreibung message"
     }
     this.confirmDialogViewModel = {
-      title: "test titel message",
-      beschreibung: "test beschreibung message",
+      title: "Anforderung löschen?",
+      beschreibung: "Wollen Sie diese Anforderung wirklich löschen?\n Sie kann nicht wieder hergestellt werden!",
       onConfirmClicked: this.doNothing1,
       onCancelClicked: this.doNothing1
     }
