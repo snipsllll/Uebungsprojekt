@@ -1,5 +1,10 @@
 .taskboard {
+  font-family: Arial, sans-serif;
+  background-color: #eaeaea;
+  justify-content: center;
+  align-items: flex-start;
   width: calc(100% - 20px);
   min-height: 100vh;
   padding: 10px;
+  margin: 0;
 }

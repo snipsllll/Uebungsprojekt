@@ -1,14 +1,16 @@
 .anforderung {
+  background-color: #f3f3f3;
   width: 100%;
   min-height: 200px;
-  border: 3px solid red;
   margin-bottom: 10px;
   display: flex;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .anforderung__details {
-  width: 300px;
-  border-right: 3px solid black;
+  min-width: 300px;
+  border-right: 3px solid #e0e0e0;
 }
 
 .anforderung__tasks-zustaende-wrapper {
@@ -17,9 +19,8 @@
 }
 
 .anforderung__tasks-spalte {
-  width: calc(33.33333% - 10px);
-  max-width: calc(33.33333% - 10px);
-  overflow: hidden;
+  flex-grow: 1;
+  max-width: calc(33.33333% - 16px);
   height: calc(100% - 10px);
   display: flow;
   padding: 5px;
@@ -27,19 +28,18 @@
 
 .anforderung__tasks-todo {
   position: relative;
+  border-right: 3px solid #e0e0e0;
 }
 
 .anforderung__tasks-in-progress {
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+  border-right: 3px solid #e0e0e0;
 }
 
 .anforderung__add-button {
   position: absolute;
   width: 40px;
   height: 40px;
-  border: 1px solid black;
-  border-radius: 5px;
+  background-color: #0E3D31;
   right: 10px;
   bottom: 10px;
   display: flex;
@@ -47,4 +47,7 @@
   align-items: center;
   font-size: 30px;
   font-weight: bold;
+  color: #f3f3f3;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
