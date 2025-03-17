@@ -1,8 +1,12 @@
-<div class="dialog">
-  <div class="title">Neue Anforderung</div>
-  <div class="content"></div>
-  <div class="buttons">
-    <button class="speichern">speichern</button>
-    <button class="abbrechen">abbrechen</button>
+<div class="overlay">
+  <div class="dialog">
+    <div class="title">{{viewModel!.anforderung!.data.title}}</div>
+    <div contenteditable="true" class="content">
+      <p [(ngModel)]="viewModel!.anforderung!.data.beschreibung"></p>
+    </div>
+    <div class="buttons">
+      <button class="speichern">speichern</button>
+      <button class="abbrechen">abbrechen</button>
+    </div>
   </div>
 </div>

@@ -1,10 +1,13 @@
 import {Component, Input} from '@angular/core';
 import {AnforderungDialogViewModel} from '../../../Models/ViewModels/AnforderungDialogViewModel';
 import {IAnforderung} from '../../../Models/Interfaces/IAnforderung';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-anforderung-dialog',
-  imports: [],
+  imports: [
+    FormsModule
+  ],
   templateUrl: './anforderung-dialog.component.html',
   styleUrl: './anforderung-dialog.component.css'
 })
