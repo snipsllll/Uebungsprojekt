@@ -1,0 +1,50 @@
+.anforderung {
+  width: 100%;
+  min-height: 200px;
+  border: 3px solid red;
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.anforderung__details {
+  width: 300px;
+  border-right: 3px solid black;
+}
+
+.anforderung__tasks-zustaende-wrapper {
+  flex-grow: 1;
+  display: flex;
+}
+
+.anforderung__tasks-spalte {
+  width: calc(33.33333% - 10px);
+  max-width: calc(33.33333% - 10px);
+  overflow: hidden;
+  height: calc(100% - 10px);
+  display: flow;
+  padding: 5px;
+}
+
+.anforderung__tasks-todo {
+  position: relative;
+}
+
+.anforderung__tasks-in-progress {
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
+
+.anforderung__add-button {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 5px;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+}

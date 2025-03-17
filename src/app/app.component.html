@@ -1,0 +1,13 @@
+<app-taskboard></app-taskboard>
+
+<app-confirm-dialog [viewModel]="dialogService.confirmDialogViewModel" class="confirm-dialog" *ngIf="dialogService.isConfirmDialogVisible">
+
+</app-confirm-dialog>
+
+<app-message-dialog [viewModel]="dialogService.messageDialogViewModel" class="message-dialog" *ngIf="dialogService.isMessageDialogVisible">
+
+</app-message-dialog>
+
+<app-anforderung-dialog [viewModel]="dialogService.anforderungDialogViewModel" class="anforderung-dialog" *ngIf="dialogService.isAnforderungDialogVisible">
+
+</app-anforderung-dialog>

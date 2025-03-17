@@ -1,0 +1,5 @@
+.taskboard {
+  width: calc(100% - 20px);
+  min-height: 100vh;
+  padding: 10px;
+}

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {MessageDialogViewModel} from '../../../Models/ViewModels/MessageDialogViewModel';
+import {DialogService} from '../../../Services/dialog.service';
 
 @Component({
   selector: 'app-message-dialog',
@@ -7,5 +9,13 @@ import { Component } from '@angular/core';
   styleUrl: './message-dialog.component.css'
 })
 export class MessageDialogComponent {
+  @Input() viewModel?: MessageDialogViewModel;
 
+  constructor(private dialogService: DialogService) {
+
+  }
+
+  onBtnOkClicked() {
+    this.dialogService.isMessageDialogVisible = false;
+  }
 }
