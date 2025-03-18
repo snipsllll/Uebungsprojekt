@@ -9,18 +9,16 @@
 }
 
 .anforderung__details {
-  min-width: 300px;
-  max-width: 300px;
-  border-right: 3px solid #eaeaea;
-  padding: 10px;
+  width: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
 }
 
 .anforderung__details-top {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   position: relative;
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 .anforderung__titel {
@@ -30,6 +28,12 @@
 
 .anforderung__beschreibung {
   word-break: break-word;
+  margin: 10px;
+  width: 300px;
+}
+
+.anforderung__beschreibung-wrapper {
+  display: flex;
 }
 
 .anforderung__menu-button {
@@ -91,6 +95,9 @@
 .anforderung__tasks-zustaende-wrapper {
   flex-grow: 1;
   display: flex;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .anforderung__tasks-spalte {
@@ -103,11 +110,11 @@
 
 .anforderung__tasks-todo {
   position: relative;
-  border-right: 3px solid #eaeaea;
+  border-right: 3px solid rgba(0, 0, 0, 0.1);
 }
 
 .anforderung__tasks-in-progress {
-  border-right: 3px solid #eaeaea;
+  border-right: 3px solid rgba(0, 0, 0, 0.1)
 }
 
 .anforderung__add-button {
@@ -136,7 +143,7 @@
 .cdk-drag-preview {
   overflow: hidden !important;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
-  background: f3f3f3;
+  background: #f3f3f3;
   border-radius: 5px;
 }
 

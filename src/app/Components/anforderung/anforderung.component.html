@@ -14,53 +14,54 @@
         <div class="anforderung__menu-background" (click)="onMenuBackgroundClicked()"></div>
       </div>
     </div>
-    <div class="anforderung__beschreibung">
-      {{ anforderung.data.beschreibung }}
+    <div class="anforderung__beschreibung-wrapper">
+      <div class="anforderung__beschreibung">
+        {{ anforderung.data.beschreibung }}
+      </div>
+
+      <div class="anforderung__tasks-zustaende-wrapper" cdkDropListGroup>
+
+        <!-- To-Do Spalte -->
+        <div class="anforderung__tasks-todo anforderung__tasks-spalte"
+             cdkDropList
+             [cdkDropListData]="todoTasks"
+             (cdkDropListDropped)="dropTask($event, TaskZustand.todo)">
+          <app-task *ngFor="let t of todoTasks"
+                    cdkDrag
+                    [cdkDragDisabled]="dragAndDropDisabled"
+                    [task]="t"
+                    (isInEditMode)="isDragAndDropDisabled($event)">
+          </app-task>
+          <div class="anforderung__add-button" (click)="onBtnAddTaskClicked()">+</div>
+        </div>
+
+
+        <!-- In Progress Spalte -->
+        <div class="anforderung__tasks-in-progress anforderung__tasks-spalte"
+             cdkDropList
+             [cdkDropListData]="inProgressTasks"
+             (cdkDropListDropped)="dropTask($event, TaskZustand.inProgress)">
+          <app-task *ngFor="let t of inProgressTasks"
+                    cdkDrag
+                    [cdkDragDisabled]="dragAndDropDisabled"
+                    [task]="t"
+                    (isInEditMode)="isDragAndDropDisabled($event)">
+          </app-task>
+        </div>
+
+        <!-- Done Spalte -->
+        <div class="anforderung__tasks-done anforderung__tasks-spalte"
+             cdkDropList
+             [cdkDropListData]="doneTasks"
+             (cdkDropListDropped)="dropTask($event, TaskZustand.done)">
+          <app-task *ngFor="let t of doneTasks"
+                    cdkDrag
+                    [cdkDragDisabled]="dragAndDropDisabled"
+                    [task]="t"
+                    (isInEditMode)="isDragAndDropDisabled($event)">
+          </app-task>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <div class="anforderung__tasks-zustaende-wrapper" cdkDropListGroup>
-
-    <!-- To-Do Spalte -->
-    <div class="anforderung__tasks-todo anforderung__tasks-spalte"
-         cdkDropList
-         [cdkDropListData]="todoTasks"
-         (cdkDropListDropped)="dropTask($event, TaskZustand.todo)">
-      <app-task *ngFor="let t of todoTasks"
-                cdkDrag
-                [cdkDragDisabled]="dragAndDropDisabled"
-                [task]="t"
-                (isInEditMode)="isDragAndDropDisabled($event)">
-      </app-task>
-      <div class="anforderung__add-button" (click)="onBtnAddTaskClicked()">+</div>
-    </div>
-
-
-    <!-- In Progress Spalte -->
-    <div class="anforderung__tasks-in-progress anforderung__tasks-spalte"
-         cdkDropList
-         [cdkDropListData]="inProgressTasks"
-         (cdkDropListDropped)="dropTask($event, TaskZustand.inProgress)">
-      <app-task *ngFor="let t of inProgressTasks"
-                cdkDrag
-                [cdkDragDisabled]="dragAndDropDisabled"
-                [task]="t"
-                (isInEditMode)="isDragAndDropDisabled($event)">
-      </app-task>
-    </div>
-
-    <!-- Done Spalte -->
-    <div class="anforderung__tasks-done anforderung__tasks-spalte"
-         cdkDropList
-         [cdkDropListData]="doneTasks"
-         (cdkDropListDropped)="dropTask($event, TaskZustand.done)">
-      <app-task *ngFor="let t of doneTasks"
-                cdkDrag
-                [cdkDragDisabled]="dragAndDropDisabled"
-                [task]="t"
-                (isInEditMode)="isDragAndDropDisabled($event)">
-      </app-task>
-    </div>
-
   </div>
 </div>
