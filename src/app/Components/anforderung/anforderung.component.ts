@@ -60,10 +60,11 @@ export class AnforderungComponent {
   onBtnDeleteClicked() {
     this.isMenuVisible = false;
     let confirmDialogViewModel: ConfirmDialogViewModel = {
-      title: "",
-      beschreibung: "",
+      title: "Löschen?",
+      beschreibung: "Wollen Sie diese Anforderung wirklich löschen? Sie kann nicht wieder hergestellt werden!",
       onConfirmClicked: this.onDeleteConfirmClicked,
-      onCancelClicked: this.onDeleteCancelClicked
+      onCancelClicked: this.onDeleteCancelClicked,
+      anforderungId: this.anforderung.id
     }
 
     this.dialogService.showConfirmDialog(confirmDialogViewModel);

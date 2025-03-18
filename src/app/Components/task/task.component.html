@@ -1,11 +1,19 @@
 <div class="task">
-  <div class="task__title" *ngIf="!isTitleInEditMode" (click)="isTitleInEditMode = true">
-    {{task.data.title !== "" ? task.data.title : "Neue Task"}}
+  <div class="task__top">
+    <div class="task__title-wrapper">
+      <div class="task__title" *ngIf="!isTitleInEditMode" (click)="isTitleInEditMode = true">
+        {{task.data.title !== "" ? task.data.title : "Neue Task"}}
+      </div>
+      <div class="task__title-edit-wrapper" *ngIf="isTitleInEditMode">
+        <input class="task__title-input" [(ngModel)]="task.data.title">
+        <div class="task__edit-background" (click)="onEditBackgroundClicked()"></div>
+      </div>
+    </div>
+    <div class="task__delete-button" (click)="onBtnDeleteClicked()">
+      <img src="assets/delete.png" class="task__delete-icon">
+    </div>
   </div>
-  <div class="task__title-edit-wrapper" *ngIf="isTitleInEditMode">
-    <input class="task__title-input" [(ngModel)]="task.data.title">
-    <div class="task__edit-background" (click)="onEditBackgroundClicked()"></div>
-  </div>
+
 
 
   <div class="task__mitarbeiter" *ngIf="!isMitarbeiterInEditMode" (click)="isMitarbeiterInEditMode = true">

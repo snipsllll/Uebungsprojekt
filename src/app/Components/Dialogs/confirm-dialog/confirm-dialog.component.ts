@@ -15,7 +15,7 @@ export class ConfirmDialogComponent {
   }
 
   onBtnConfirmClicked() {
-    this.viewModel?.onConfirmClicked();
+    this.viewModel?.onConfirmClicked(this.viewModel?.anforderungId);
   }
 
   onBtnCancelClicked() {

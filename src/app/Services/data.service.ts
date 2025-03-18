@@ -81,6 +81,30 @@ export class DataService {
     });
   }
 
+  deleteTask(taskId: number) {
+    let found = false;
+
+    this.anforderungen.forEach(anforderung => {
+      anforderung.data.tasks.forEach((task, index) => {
+        if (task.id === taskId && !found) {
+          found = true;
+
+          let notDeletedTasks: ITask[] = [];
+
+          anforderung.data.tasks.forEach(ttask => {
+            if(ttask.id !== taskId) {
+              notDeletedTasks.push(ttask);
+            }
+          })
+
+          let anforderungIndex = this.anforderungen.findIndex(x => x.id === anforderung.id);
+          this.anforderungen[anforderungIndex].data.tasks = notDeletedTasks;
+          this.save(true);
+        }
+      });
+    });
+  }
+
   private getNextFreeAnforderungId(): number {
     if (this.anforderungen.length === 0) return 1;
     return Math.max(...this.anforderungen.map(a => a.id), 0) + 1;
@@ -93,10 +117,12 @@ export class DataService {
   }
 
   private save(reload?: boolean) {
-    console.log(this.anforderungen);
     this.fireService.saveDataOnServer(this.anforderungen).then(() => {
-      if (reload) {
-        this.sendUpdate();
+      if (true) {
+        this.fireService.getDataFromServer().then(data => {
+          this.anforderungen = data;
+          this.sendUpdate();
+        })
       }
     });
   }

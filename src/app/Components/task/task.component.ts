@@ -38,6 +38,10 @@ export class TaskComponent {
     this.afterTaskChanged();
   }
 
+  onBtnDeleteClicked() {
+    this.dataService.deleteTask(this.task.id)
+  }
+
   protected onEditBackgroundClicked() {
     this.isTitleInEditMode = false;
     this.isMitarbeiterInEditMode = false;

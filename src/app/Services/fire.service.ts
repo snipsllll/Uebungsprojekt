@@ -3,6 +3,7 @@ import { IAnforderung } from '../Models/Interfaces/IAnforderung';
 import { IFireData } from '../Models/Interfaces/IFireData';
 import { Firestore, collection, doc, getDocs, updateDoc, setDoc } from '@angular/fire/firestore';
 import {TaskZustand} from '../Models/Enums/TaskZustand';
+import {ITask} from '../Models/Interfaces/ITask';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,6 @@ export class FireService {
   }
 
   async getDataFromServer(): Promise<IAnforderung[]> {
-    //return this.getLocalTestData();
     console.log("...downloading fireData")
 
     const collectionRef = collection(this.firestore, `data`);
@@ -51,6 +51,7 @@ export class FireService {
       const docSnap = querySnapshot.docs[0];
       console.log('Successfully downloaded fireData.')
       const data = docSnap.data() as IFireData;
+      //return this.getLocalTestData();
       return data.anforderungen as IAnforderung[];
     } catch (error) {
       console.error(`Error while downloading data from server!`, error);
@@ -59,6 +60,17 @@ export class FireService {
   }
 
   private getLocalTestData() {
+    let tasks: ITask[] = [];
+    for(let i=20;i<=220;i++){
+      tasks.push({
+        id: i,
+        data: {
+          title: "MIAU",
+          mitarbeiter: "David",
+          zustand: TaskZustand.todo
+        }
+      })
+    }
     return [
       {
         id: 1,
@@ -179,9 +191,9 @@ export class FireService {
       {
         id: 5,
         data: {
-          title: "Kundenportal erweitern",
-          beschreibung: "Neue Funktionen für das Kundenportal hinzufügen",
-          tasks: []
+          title: "MIAUUUUUUUU",
+          beschreibung: "Noah braucht mehr MIAU's in seiner Fresse!",
+          tasks: tasks
         }
       }
     ];

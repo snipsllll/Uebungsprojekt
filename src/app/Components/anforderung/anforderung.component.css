@@ -25,6 +25,11 @@
 
 .anforderung__titel {
   font-weight: bold;
+  word-break: break-all;
+}
+
+.anforderung__beschreibung {
+  word-break: break-word;
 }
 
 .anforderung__menu-button {

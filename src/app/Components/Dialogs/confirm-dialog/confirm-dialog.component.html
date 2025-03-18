@@ -3,8 +3,8 @@
     <div class="title">{{ viewModel!.title }}</div>
     <div class="content">{{ viewModel!.beschreibung }}</div>
     <div class="buttons">
-      <button class="ja">Ja</button>
-      <button class="nein">Nein</button>
+      <button class="ja" (click)="onBtnConfirmClicked()">Ja</button>
+      <button class="nein" (click)="onBtnCancelClicked()">Nein</button>
     </div>
   </div>
 </div>

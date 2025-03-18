@@ -11,9 +11,10 @@ import {FormsModule} from '@angular/forms';
   templateUrl: './anforderung-dialog.component.html',
   styleUrl: './anforderung-dialog.component.css'
 })
+
 export class AnforderungDialogComponent implements OnInit {
 
-  @Input() viewModel?: AnforderungDialogViewModel;
+  @Input() viewModel!: AnforderungDialogViewModel;
   oldAnforderung!: IAnforderung;
   isSaveButtonDisabled: boolean = true;
 
@@ -22,6 +23,16 @@ export class AnforderungDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(!this.viewModel?.anforderung) {
+      this.viewModel!.anforderung = {
+        id: this.viewModel?.anforderung?.id ?? -1,
+        data: {
+          title: this.viewModel?.anforderung?.data.title ?? "",
+          beschreibung: this.viewModel?.anforderung?.data.beschreibung ?? "",
+          tasks: this.viewModel?.anforderung?.data.tasks ?? []
+        }
+      }
+    }
     this.oldAnforderung = {
       id: this.viewModel?.anforderung?.id ?? -1,
       data: {
@@ -45,6 +56,12 @@ export class AnforderungDialogComponent implements OnInit {
   }
 
   onBtnCancleClicked() {
+    if (this.viewModel) {
+      this.viewModel.anforderung!.data.title = this.oldAnforderung.data.title;
+      this.viewModel.anforderung!.data.beschreibung = this.oldAnforderung.data.beschreibung;
+      this.viewModel.anforderung!.data.tasks = [...this.oldAnforderung.data.tasks]; // Falls es eine Referenz ist, kopieren
+    }
+
     this.viewModel?.onCancelClick();
   }
 

@@ -19,8 +19,6 @@ import {NgForOf} from '@angular/common';
 export class TaskboardComponent {
   anforderungen = computed<IAnforderung[]>(() => {
     this.dataService.updated();
-    console.log(this.dataService.anforderungen);
-    console.log(this.dataService.anforderungen);
     return this.dataService.anforderungen;
   });
 
@@ -42,6 +40,7 @@ export class TaskboardComponent {
   }
 
   onAddAnforderungSaveClicked = (anforderung: IAnforderung) => {
+    console.log(anforderung)
     this.dataService.addAnforderung(anforderung.data);
     this.dialogService.isAnforderungDialogVisible = false;
   }
