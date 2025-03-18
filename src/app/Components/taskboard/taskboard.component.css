@@ -15,15 +15,17 @@
   right: 10px;
   width: 60px;
   height: 60px;
-  background-color: #e0e0e0;
+  margin: 20px;
+  margin-right: 30px;
+  background-color: rgba(140, 4, 16, 1);;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 40px;
   font-weight: bold;
-  color: #666666;
+  color: #f3f3f3;
   border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
 

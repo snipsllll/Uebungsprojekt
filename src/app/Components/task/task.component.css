@@ -1,7 +1,7 @@
 .task {
   font-family: Arial, sans-serif;
-  background-color: #0e2c3e;
-  color: #f3f3f3;
+  background-color: rgba(140, 4, 16, 0.6);
+  color: black;
   flex-grow: 1;
   min-height: 50px;
   padding: 10px;
@@ -39,7 +39,7 @@
 }
 
 .task__title {
-  font-weight: bold;
+
 }
 
 .task__title-input {
@@ -55,6 +55,12 @@
   z-index: 10;
   top: 0;
   left: 0;
+}
+
+.task__mitarbeiter {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 20px;
 }
 
 .task__mitarbeiter-input {

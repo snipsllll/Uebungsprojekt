@@ -44,8 +44,7 @@
 }
 .content {
   border-radius: 5px;
-  border: 1px solid #e0e0e0;
-  box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
   background-color: #f3f3f3;
   margin-bottom: 11px;
   height: 60px;
@@ -67,9 +66,8 @@
   height: 40px;
   width: 120px;
   border-radius: 5px;
-  border: 1px solid #0e2c3e;
   box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
-  background-color: #0e2c3e;
+  background-color: #8C0410;
   padding: 5px 10px;
   cursor: pointer;
   color: #f3f3f3;

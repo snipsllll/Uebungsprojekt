@@ -11,7 +11,7 @@
 .anforderung__details {
   min-width: 300px;
   max-width: 300px;
-  border-right: 3px solid #e0e0e0;
+  border-right: 3px solid #eaeaea;
   padding: 10px;
 }
 
@@ -53,10 +53,10 @@
 
 .anforderung__dropdown {
   position: absolute;
-  background: white;
-  border: 1px solid #ccc;
+  background: #f3f3f3;
+  border: 1px solid #f3f3f3;
   border-radius: 4px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   padding: 5px;
   z-index: 1000;
   right: 0;
@@ -76,7 +76,7 @@
 }
 
 .anforderung__dropdown button:hover {
-  background: #f0f0f0;
+  background: #f3f3f3;
 }
 
 .anforderung__menu-background {
@@ -103,28 +103,28 @@
 
 .anforderung__tasks-todo {
   position: relative;
-  border-right: 3px solid #e0e0e0;
+  border-right: 3px solid #eaeaea;
 }
 
 .anforderung__tasks-in-progress {
-  border-right: 3px solid #e0e0e0;
+  border-right: 3px solid #eaeaea;
 }
 
 .anforderung__add-button {
-  position: absolute;
   width: 30px;
   height: 30px;
-  background-color: #e0e0e0;
-  right: 10px;
-  bottom: 10px;
+  background-color: rgba(140, 4, 16, 1);;
+  margin: 5px;
+  margin-top: 10px;
   display: flex;
+  justify-self: flex-end;
   justify-content: center;
   align-items: center;
   font-size: 25px;
   font-weight: bold;
-  color: #666666;
+  color: #f3f3f3;
   border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
 
@@ -135,8 +135,8 @@
 /* Verhindert Scrollbar während des Drag-Vorgangs */
 .cdk-drag-preview {
   overflow: hidden !important;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
-  background: white;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+  background: f3f3f3;
   border-radius: 5px;
 }
 
