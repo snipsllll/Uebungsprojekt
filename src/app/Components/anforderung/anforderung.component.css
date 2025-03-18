@@ -29,7 +29,8 @@
 .anforderung__beschreibung {
   word-break: break-word;
   margin: 10px;
-  width: 300px;
+  max-width: 300px;
+  min-width: 300px;
 }
 
 .anforderung__beschreibung-wrapper {
