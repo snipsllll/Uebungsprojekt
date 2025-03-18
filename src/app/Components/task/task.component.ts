@@ -1,15 +1,17 @@
-import {Component, Input, ViewChild, ElementRef, AfterViewInit, EventEmitter, Output} from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { ITask } from '../../Models/Interfaces/ITask';
 import { DataService } from '../../Services/data.service';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CdkTrapFocus } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-task',
   standalone: true,
   imports: [
     NgIf,
-    FormsModule
+    FormsModule,
+    CdkTrapFocus
   ],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css'
@@ -27,27 +29,21 @@ export class TaskComponent implements AfterViewInit {
   constructor(private dataService: DataService) {}
 
   ngAfterViewInit(): void {
-    // Wird nur benötigt, wenn die Inputs schon beim Start geladen sind.
+    if (this.task.data.isTitleInEditMode) {
+      this.titleInput.nativeElement.focus();
+    }
   }
 
   afterTaskChanged() {
-    this.dataService.editTask(this.task);
-  }
-
-  onStatusChange() {
-    this.afterTaskChanged();
-  }
-
-  onTitleChange() {
-    this.afterTaskChanged();
-  }
-
-  onMitarbeiterChange() {
-    this.afterTaskChanged();
-  }
-
-  onBtnDeleteClicked() {
-    this.dataService.deleteTask(this.task.id);
+    this.dataService.editTask({
+      id: this.task.id,
+      data: {
+        title: this.task.data.title,
+        mitarbeiter: this.task.data.mitarbeiter,
+        zustand: this.task.data.zustand,
+        isTitleInEditMode: false,
+      }
+    });
   }
 
   enableTitleEdit() {
@@ -73,5 +69,9 @@ export class TaskComponent implements AfterViewInit {
     this.isMitarbeiterInEditMode = false;
     this.isInEditMode.emit(false);
     this.afterTaskChanged();
+  }
+
+  onBtnDeleteClicked() {
+    this.dataService.deleteTask(this.task.id);
   }
 }
