@@ -22,7 +22,7 @@
 
   <!-- Mitarbeiter-Anzeige -->
   <div class="task__mitarbeiter" *ngIf="!isMitarbeiterInEditMode" (click)="enableMitarbeiterEdit()">
-    {{ task.data.mitarbeiter !== "" ? task.data.mitarbeiter : "kein Mitarbeiter" }}
+    - {{ task.data.mitarbeiter !== "" ? task.data.mitarbeiter : "kein Mitarbeiter" }}
   </div>
 
   <!-- Mitarbeiter-Bearbeitung -->
