@@ -3,10 +3,10 @@
     <div class="anforderung__top">
       <div class="anforderung__top-left">
         <div class="anforderung__arrow-wrapper" *ngIf="isExpanded" (click)="toggleExpanded()">
-          <img src="assets/arrow-down.png" class="anforderung__arrow">
+          <img src="assets/arrow-down.png" class="anforderung__arrow" alt="v">
         </div>
         <div class="anforderung__arrow-wrapper" *ngIf="!isExpanded" (click)="toggleExpanded()">
-          <img src="assets/arrow-right.png" class="anforderung__arrow">
+          <img src="assets/arrow-right.png" class="anforderung__arrow" alt=">">
         </div>
         <div class="anforderung__titel">
           {{ anforderung.data.title }}
@@ -14,7 +14,7 @@
       </div>
       <div class="anforderung__top-right">
         <div class="anforderung__menu-button" (click)="onBtnMenuClicked()">
-          <img src="assets/threeHoriDots.png" class="anforderung__menu-button-icon">
+          <img src="assets/threeHoriDots.png" class="anforderung__menu-button-icon" alt="...">
         </div>
       </div>
 
