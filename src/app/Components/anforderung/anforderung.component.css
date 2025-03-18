@@ -24,6 +24,7 @@
 .anforderung__titel {
   font-weight: bold;
   word-break: break-all;
+  font-size: 30px;
 }
 
 .anforderung__beschreibung {
@@ -47,13 +48,14 @@
 }
 
 .anforderung__menu-button-icon {
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
+  margin-top: 10px;
 }
 
 .anforderung__menu-button-icon:hover {
-  width: 22px;
-  height: 22px;
+  width: 44px;
+  height: 44px;
 }
 
 .anforderung__dropdown {
@@ -96,7 +98,7 @@
 .anforderung__tasks-zustaende-wrapper {
   flex-grow: 1;
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
