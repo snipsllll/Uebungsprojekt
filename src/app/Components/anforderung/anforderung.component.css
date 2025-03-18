@@ -22,6 +22,30 @@
   background-color: #8C0410;
 }
 
+.anforderung__top-left {
+  display: flex;
+  align-items: center;
+}
+
+.anforderung__arrow-wrapper {
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.anforderung__arrow {
+  width: 40px;
+  height: 40px;
+}
+
+.anforderung__arrow:hover {
+  width: 44px;
+  height: 44px;
+}
+
 .anforderung__titel {
   font-weight: bold;
   word-break: break-all;
@@ -41,8 +65,8 @@
 
 .anforderung__menu-button {
   cursor: pointer;
-  height: 22px;
-  width: 22px;
+  height: 44px;
+  width: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,7 +75,6 @@
 .anforderung__menu-button-icon {
   width: 40px;
   height: 40px;
-  margin-top: 10px;
 }
 
 .anforderung__menu-button-icon:hover {
