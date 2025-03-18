@@ -15,7 +15,6 @@
 .task__top {
   display: flex;
   justify-content: space-between;
-  //align-items: center;
   min-height: 23px;
 }
 
