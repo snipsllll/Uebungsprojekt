@@ -71,7 +71,7 @@ export class DataService {
     let found = false;
 
     this.anforderungen.forEach(anforderung => {
-      anforderung.data.tasks.forEach((task, index) => {
+      anforderung.data.tasks.forEach((task) => {
         if (task.id === editedTask.id && !found) {
           found = true;
 
@@ -91,7 +91,7 @@ export class DataService {
     let found = false;
 
     this.anforderungen.forEach(anforderung => {
-      anforderung.data.tasks.forEach((task, index) => {
+      anforderung.data.tasks.forEach((task) => {
         if (task.id === taskId && !found) {
           found = true;
 
