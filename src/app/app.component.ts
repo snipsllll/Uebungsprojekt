@@ -5,12 +5,7 @@ import {MessageDialogComponent} from './Components/Dialogs/message-dialog/messag
 import {ConfirmDialogComponent} from './Components/Dialogs/confirm-dialog/confirm-dialog.component';
 import {TaskboardComponent} from './Components/taskboard/taskboard.component';
 import {NgIf} from '@angular/common';
-import {AnforderungDialogViewModel} from './Models/ViewModels/AnforderungDialogViewModel';
-import {TaskZustand} from './Models/Enums/TaskZustand';
-import {IAnforderung} from './Models/Interfaces/IAnforderung';
 import {DataService} from './Services/data.service';
-import {MessageDialogViewModel} from './Models/ViewModels/MessageDialogViewModel';
-import {ConfirmDialogViewModel} from './Models/ViewModels/ConfirmDialogViewModel';
 
 @Component({
   selector: 'app-root',
@@ -27,13 +22,7 @@ import {ConfirmDialogViewModel} from './Models/ViewModels/ConfirmDialogViewModel
 export class AppComponent {
   title = 'Uebungsprojekt';
 
-  messageDialogViewModel: MessageDialogViewModel;
-
   constructor(protected dialogService: DialogService, private dataService: DataService) {
-    this.messageDialogViewModel = {
-      title: "test titel message",
-      beschreibung: "test beschreibung message"
-    }
-    //this.dialogService.showMessageDialog(this.messageDialogViewModel);
+
   }
 }
