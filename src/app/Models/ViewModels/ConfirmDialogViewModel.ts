@@ -3,4 +3,5 @@ export interface ConfirmDialogViewModel {
   beschreibung: string;
   onConfirmClicked: (id?: number) => void;
   onCancelClicked: () => void;
+  anforderungId: number;
 }

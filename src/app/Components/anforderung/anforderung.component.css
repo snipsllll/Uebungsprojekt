@@ -1,25 +1,112 @@
 .anforderung {
+  background-color: #f3f3f3;
   width: 100%;
-  min-height: 200px;
-  border: 3px solid red;
+  min-height: 50px;
   margin-bottom: 10px;
   display: flex;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .anforderung__details {
-  width: 300px;
-  border-right: 3px solid black;
+  width: calc(100%);
+  display: flex;
+  flex-direction: column;
+}
+
+.anforderung__top {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding: 10px;
+  background-color: #8C0410;
+}
+
+.anforderung__titel {
+  font-weight: bold;
+  word-break: break-all;
+  font-size: 30px;
+}
+
+.anforderung__beschreibung {
+  word-break: break-word;
+  margin: 10px;
+  max-width: 300px;
+  min-width: 300px;
+}
+
+.anforderung__beschreibung-wrapper {
+  display: flex;
+}
+
+.anforderung__menu-button {
+  cursor: pointer;
+  height: 22px;
+  width: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.anforderung__menu-button-icon {
+  width: 40px;
+  height: 40px;
+  margin-top: 10px;
+}
+
+.anforderung__menu-button-icon:hover {
+  width: 44px;
+  height: 44px;
+}
+
+.anforderung__dropdown {
+  position: absolute;
+  background: #f3f3f3;
+  border: 1px solid #f3f3f3;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 5px;
+  z-index: 1000;
+  right: 0;
+  width: fit-content;
+}
+
+.anforderung__dropdown button {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  z-index: 1000;
+}
+
+.anforderung__dropdown button:hover {
+  background: #f3f3f3;
+}
+
+.anforderung__menu-background {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 990;
 }
 
 .anforderung__tasks-zustaende-wrapper {
   flex-grow: 1;
   display: flex;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .anforderung__tasks-spalte {
-  width: calc(33.33333% - 10px);
-  max-width: calc(33.33333% - 10px);
-  overflow: hidden;
+  flex-grow: 1;
+  max-width: calc(33.33333% - 16px);
   height: calc(100% - 10px);
   display: flow;
   padding: 5px;
@@ -27,24 +114,48 @@
 
 .anforderung__tasks-todo {
   position: relative;
+  border-right: 3px solid rgba(0, 0, 0, 0.1);
 }
 
 .anforderung__tasks-in-progress {
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+  border-right: 3px solid rgba(0, 0, 0, 0.1)
 }
 
 .anforderung__add-button {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  border: 1px solid black;
-  border-radius: 5px;
-  right: 10px;
-  bottom: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: rgba(140, 4, 16, 1);;
+  margin: 5px;
+  margin-top: 10px;
   display: flex;
+  justify-self: flex-end;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
+  color: #f3f3f3;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
+
+.anforderung__add-button:hover {
+  font-size: 28px;
+}
+
+/* Verhindert Scrollbar während des Drag-Vorgangs */
+.cdk-drag-preview {
+  overflow: hidden !important;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+  background: #f3f3f3;
+  border-radius: 5px;
+}
+
+/* Vorschau innerhalb der Ziel-Spalte anzeigen */
+.cdk-drag-placeholder {
+  opacity: 0.4; /* Vorschau sichtbar, aber nicht vollständig deckend */
+  height: 50px; /* Höhe anpassen, um die Position in der Spalte zu simulieren */
+  background: rgba(0, 0, 0, 0.1); /* Halbtransparent für eine bessere Vorschau */
+  border-radius: 5px;
+}
+

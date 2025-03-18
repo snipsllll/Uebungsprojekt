@@ -5,6 +5,7 @@ import {MessageDialogComponent} from './Components/Dialogs/message-dialog/messag
 import {ConfirmDialogComponent} from './Components/Dialogs/confirm-dialog/confirm-dialog.component';
 import {TaskboardComponent} from './Components/taskboard/taskboard.component';
 import {NgIf} from '@angular/common';
+import {DataService} from './Services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ import {NgIf} from '@angular/common';
 export class AppComponent {
   title = 'Uebungsprojekt';
 
-  constructor(protected dialogService: DialogService) {
+  constructor(protected dialogService: DialogService, private dataService: DataService) {
 
   }
 }

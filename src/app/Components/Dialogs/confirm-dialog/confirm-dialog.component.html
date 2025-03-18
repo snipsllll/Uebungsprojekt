@@ -1,1 +1,10 @@
-<p>confirm-dialog works!</p>
+<div class="overlay">
+  <div class="dialog">
+    <div class="title">{{ viewModel!.title }}</div>
+    <div class="content">{{ viewModel!.beschreibung }}</div>
+    <div class="buttons">
+      <button class="ja" (click)="onBtnConfirmClicked()">Ja</button>
+      <button class="nein" (click)="onBtnCancelClicked()">Nein</button>
+    </div>
+  </div>
+</div>
