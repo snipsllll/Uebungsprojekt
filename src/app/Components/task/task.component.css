@@ -38,8 +38,8 @@
   height: 22px;
 }
 
-.task__title {
-
+.task__title-wrapper {
+  max-width: calc(100% - 22px);
 }
 
 .task__title-input {
