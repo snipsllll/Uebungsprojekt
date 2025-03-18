@@ -4,7 +4,9 @@
       <div class="anforderung__titel">
         {{ anforderung.data.title }}
       </div>
-      <div class="anforderung__menu-button" (click)="onBtnMenuClicked()">...</div>
+      <div class="anforderung__menu-button" (click)="onBtnMenuClicked()">
+        <img src="assets/threeHoriDots.png" class="anforderung__menu-button-icon">
+      </div>
 
       <div class="anforderung__dropdown" *ngIf="isMenuVisible" [ngStyle]="{'top.px': dropdownPosition.y}">
         <button (click)="onBtnEditClicked()">Bearbeiten</button>
