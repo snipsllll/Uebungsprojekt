@@ -19,7 +19,9 @@
   justify-content: space-between;
   position: relative;
   padding: 10px;
+  color: #f3f3f3;
   background-color: #8C0410;
+  border-radius: 5px;
 }
 
 .anforderung__top-left {
@@ -122,6 +124,8 @@
 .anforderung__tasks-zustaende-wrapper {
   flex-grow: 1;
   display: flex;
+  margin-top: 20px;
+  margin-right: 20px;
   margin-bottom: 20px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -129,7 +133,8 @@
 
 .anforderung__tasks-spalte {
   flex-grow: 1;
-  max-width: calc(33.33333% - 16px);
+  max-width: calc(33.33333% - 12px);
+  min-width: calc(33.33333% - 12px);
   height: calc(100% - 10px);
   display: flow;
   padding: 5px;
