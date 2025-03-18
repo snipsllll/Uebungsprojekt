@@ -1,6 +1,6 @@
 <div class="anforderung">
   <div class="anforderung__details">
-    <div class="anforderung__details-top">
+    <div class="anforderung__top">
       <div class="anforderung__titel">
         {{ anforderung.data.title }}
       </div>
@@ -14,7 +14,7 @@
         <div class="anforderung__menu-background" (click)="onMenuBackgroundClicked()"></div>
       </div>
     </div>
-    <div class="anforderung__beschreibung-wrapper">
+    <div class="anforderung__beschreibung-wrapper" *ngIf="isExpanded">
       <div class="anforderung__beschreibung">
         {{ anforderung.data.beschreibung }}
       </div>

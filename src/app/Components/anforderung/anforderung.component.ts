@@ -35,6 +35,7 @@ export class AnforderungComponent {
   isMenuVisible: boolean = false;
   dropdownPosition = { x: 0, y: 0 };
   dragAndDropDisabled = false;
+  isExpanded = true;
 
   constructor(private dataService: DataService, private dialogService: DialogService) {
 
