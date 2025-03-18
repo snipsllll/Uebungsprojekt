@@ -1,11 +1,12 @@
-import {Component, Input, viewChild} from '@angular/core';
-import {ITask} from '../../Models/Interfaces/ITask';
-import {DataService} from '../../Services/data.service';
-import {NgIf} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {Component, Input, ViewChild, ElementRef, AfterViewInit, EventEmitter, Output} from '@angular/core';
+import { ITask } from '../../Models/Interfaces/ITask';
+import { DataService } from '../../Services/data.service';
+import { NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-task',
+  standalone: true,
   imports: [
     NgIf,
     FormsModule
@@ -13,13 +14,20 @@ import {FormsModule} from '@angular/forms';
   templateUrl: './task.component.html',
   styleUrl: './task.component.css'
 })
-export class TaskComponent {
+export class TaskComponent implements AfterViewInit {
   @Input() task!: ITask;
+  @Output() isInEditMode = new EventEmitter<boolean>();
+
   isTitleInEditMode = false;
   isMitarbeiterInEditMode = false;
 
-  constructor(private dataService: DataService) {
+  @ViewChild('titleInput') titleInput!: ElementRef;
+  @ViewChild('mitarbeiterInput') mitarbeiterInput!: ElementRef;
 
+  constructor(private dataService: DataService) {}
+
+  ngAfterViewInit(): void {
+    // Wird nur benötigt, wenn die Inputs schon beim Start geladen sind.
   }
 
   afterTaskChanged() {
@@ -39,14 +47,31 @@ export class TaskComponent {
   }
 
   onBtnDeleteClicked() {
-    this.dataService.deleteTask(this.task.id)
+    this.dataService.deleteTask(this.task.id);
   }
 
-  protected onEditBackgroundClicked() {
+  enableTitleEdit() {
+    this.isTitleInEditMode = true;
+    this.isInEditMode.emit(true);
+    setTimeout(() => {
+      this.titleInput?.nativeElement.focus();
+      this.titleInput?.nativeElement.select();
+    }, 0);
+  }
+
+  enableMitarbeiterEdit() {
+    this.isMitarbeiterInEditMode = true;
+    this.isInEditMode.emit(true);
+    setTimeout(() => {
+      this.mitarbeiterInput?.nativeElement.focus();
+      this.mitarbeiterInput?.nativeElement.select();
+    }, 0);
+  }
+
+  onEditBackgroundClicked() {
     this.isTitleInEditMode = false;
     this.isMitarbeiterInEditMode = false;
-    this.onTitleChange();
+    this.isInEditMode.emit(false);
+    this.afterTaskChanged();
   }
-
-  protected readonly viewChild = viewChild;
 }

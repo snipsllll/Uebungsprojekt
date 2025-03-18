@@ -26,7 +26,12 @@
          cdkDropList
          [cdkDropListData]="todoTasks"
          (cdkDropListDropped)="dropTask($event, TaskZustand.todo)">
-      <app-task *ngFor="let t of todoTasks" cdkDrag [task]="t"></app-task>
+      <app-task *ngFor="let t of todoTasks"
+                cdkDrag
+                [cdkDragDisabled]="dragAndDropDisabled"
+                [task]="t"
+                (isInEditMode)="isDragAndDropDisabled($event)">
+      </app-task>
       <div class="anforderung__add-button" (click)="onBtnAddTaskClicked()">+</div>
     </div>
 
@@ -35,7 +40,12 @@
          cdkDropList
          [cdkDropListData]="inProgressTasks"
          (cdkDropListDropped)="dropTask($event, TaskZustand.inProgress)">
-      <app-task *ngFor="let t of inProgressTasks" cdkDrag [task]="t"></app-task>
+      <app-task *ngFor="let t of inProgressTasks"
+                cdkDrag
+                [cdkDragDisabled]="dragAndDropDisabled"
+                [task]="t"
+                (isInEditMode)="isDragAndDropDisabled($event)">
+      </app-task>
     </div>
 
     <!-- Done Spalte -->
@@ -43,7 +53,12 @@
          cdkDropList
          [cdkDropListData]="doneTasks"
          (cdkDropListDropped)="dropTask($event, TaskZustand.done)">
-      <app-task *ngFor="let t of doneTasks" cdkDrag [task]="t"></app-task>
+      <app-task *ngFor="let t of doneTasks"
+                cdkDrag
+                [cdkDragDisabled]="dragAndDropDisabled"
+                [task]="t"
+                (isInEditMode)="isDragAndDropDisabled($event)">
+      </app-task>
     </div>
 
   </div>

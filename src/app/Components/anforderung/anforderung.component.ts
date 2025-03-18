@@ -34,9 +34,15 @@ export class AnforderungComponent {
   @Input() anforderung!: IAnforderung;
   isMenuVisible: boolean = false;
   dropdownPosition = { x: 0, y: 0 };
+  dragAndDropDisabled = false;
 
   constructor(private dataService: DataService, private dialogService: DialogService) {
 
+  }
+
+  isDragAndDropDisabled(b: boolean) {
+    this.dragAndDropDisabled = b;
+    console.log(this.dragAndDropDisabled);
   }
 
   onBtnMenuClicked() {
