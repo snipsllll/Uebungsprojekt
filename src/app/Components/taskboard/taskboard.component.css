@@ -1,6 +1,6 @@
 .taskboard {
-  font-family: Arial, sans-serif;
-  background-color: #eaeaea;
+  font-family: 'Century Gothic', Arial, sans-serif;
+  background-color: #BFBFBF;
   justify-content: center;
   align-items: flex-start;
   width: calc(100% - 20px);

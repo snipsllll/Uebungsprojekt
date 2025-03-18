@@ -1,11 +1,21 @@
 <div class="anforderung">
   <div class="anforderung__details">
     <div class="anforderung__top">
-      <div class="anforderung__titel">
-        {{ anforderung.data.title }}
+      <div class="anforderung__top-left">
+        <div class="anforderung__arrow-wrapper" *ngIf="isExpanded" (click)="toggleExpanded()">
+          <img src="assets/arrow-down-white.png" class="anforderung__arrow" alt="v">
+        </div>
+        <div class="anforderung__arrow-wrapper" *ngIf="!isExpanded" (click)="toggleExpanded()">
+          <img src="assets/arrow-right-white.png" class="anforderung__arrow" alt=">">
+        </div>
+        <div class="anforderung__titel">
+          {{ anforderung.data.title }}
+        </div>
       </div>
-      <div class="anforderung__menu-button" (click)="onBtnMenuClicked()">
-        <img src="assets/threeHoriDots.png" class="anforderung__menu-button-icon">
+      <div class="anforderung__top-right">
+        <div class="anforderung__menu-button" (click)="onBtnMenuClicked()">
+          <img src="assets/hori-dots-white.png" class="anforderung__menu-button-icon" alt="...">
+        </div>
       </div>
 
       <div class="anforderung__dropdown" *ngIf="isMenuVisible" [ngStyle]="{'top.px': dropdownPosition.y}">

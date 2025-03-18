@@ -19,7 +19,33 @@
   justify-content: space-between;
   position: relative;
   padding: 10px;
+  color: #f3f3f3;
   background-color: #8C0410;
+  border-radius: 5px;
+}
+
+.anforderung__top-left {
+  display: flex;
+  align-items: center;
+}
+
+.anforderung__arrow-wrapper {
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.anforderung__arrow {
+  width: 40px;
+  height: 40px;
+}
+
+.anforderung__arrow:hover {
+  width: 44px;
+  height: 44px;
 }
 
 .anforderung__titel {
@@ -41,8 +67,8 @@
 
 .anforderung__menu-button {
   cursor: pointer;
-  height: 22px;
-  width: 22px;
+  height: 44px;
+  width: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,7 +77,6 @@
 .anforderung__menu-button-icon {
   width: 40px;
   height: 40px;
-  margin-top: 10px;
 }
 
 .anforderung__menu-button-icon:hover {
@@ -99,6 +124,8 @@
 .anforderung__tasks-zustaende-wrapper {
   flex-grow: 1;
   display: flex;
+  margin-top: 20px;
+  margin-right: 20px;
   margin-bottom: 20px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -106,7 +133,8 @@
 
 .anforderung__tasks-spalte {
   flex-grow: 1;
-  max-width: calc(33.33333% - 16px);
+  max-width: calc(33.33333% - 12px);
+  min-width: calc(33.33333% - 12px);
   height: calc(100% - 10px);
   display: flow;
   padding: 5px;

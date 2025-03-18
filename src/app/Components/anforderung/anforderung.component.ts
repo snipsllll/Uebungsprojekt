@@ -41,6 +41,10 @@ export class AnforderungComponent {
 
   }
 
+  toggleExpanded() {
+    this.isExpanded = !this.isExpanded;
+  }
+
   isDragAndDropDisabled(b: boolean) {
     this.dragAndDropDisabled = b;
     console.log(this.dragAndDropDisabled);

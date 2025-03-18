@@ -1,4 +1,5 @@
-<app-taskboard></app-taskboard>
+<app-taskboard *ngIf="!isLoading()"></app-taskboard>
+<app-loading *ngIf="isLoading()"></app-loading>
 
 <app-confirm-dialog [viewModel]="dialogService.confirmDialogViewModel" class="confirm-dialog" *ngIf="dialogService.isConfirmDialogVisible">
 
