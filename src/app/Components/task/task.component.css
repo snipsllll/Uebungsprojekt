@@ -12,6 +12,21 @@
   min-width: 120px;
   margin-bottom: 3px;
 }
+.task__title {
+  width: 100%;
+}
+
+.task__mitarbeiter {
+  width: 100%;
+}
+
+.task__title-edit-wrapper {
+  width: 100%;
+}
+
+.task__mitarbeiter-edit-wrapper {
+  width: 100%;
+}
 
 .task__top {
   display: flex;
