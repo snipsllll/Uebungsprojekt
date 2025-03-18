@@ -3,15 +3,13 @@ import { ITask } from '../../Models/Interfaces/ITask';
 import { DataService } from '../../Services/data.service';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CdkTrapFocus } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-task',
   standalone: true,
   imports: [
     NgIf,
-    FormsModule,
-    CdkTrapFocus
+    FormsModule
   ],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css'
