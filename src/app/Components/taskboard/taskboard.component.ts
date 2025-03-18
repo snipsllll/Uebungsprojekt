@@ -40,6 +40,7 @@ export class TaskboardComponent {
   }
 
   onAddAnforderungSaveClicked = (anforderung: IAnforderung) => {
+    console.log(anforderung)
     this.dataService.addAnforderung(anforderung.data);
     this.dialogService.isAnforderungDialogVisible = false;
   }
