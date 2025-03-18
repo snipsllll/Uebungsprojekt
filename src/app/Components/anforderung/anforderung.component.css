@@ -131,3 +131,20 @@
 .anforderung__add-button:hover {
   font-size: 28px;
 }
+
+/* Verhindert Scrollbar während des Drag-Vorgangs */
+.cdk-drag-preview {
+  overflow: hidden !important;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  background: white;
+  border-radius: 5px;
+}
+
+/* Vorschau innerhalb der Ziel-Spalte anzeigen */
+.cdk-drag-placeholder {
+  opacity: 0.4; /* Vorschau sichtbar, aber nicht vollständig deckend */
+  height: 50px; /* Höhe anpassen, um die Position in der Spalte zu simulieren */
+  background: rgba(0, 0, 0, 0.1); /* Halbtransparent für eine bessere Vorschau */
+  border-radius: 5px;
+}
+
