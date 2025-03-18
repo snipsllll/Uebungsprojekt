@@ -36,6 +36,7 @@
              cdkDropList
              [cdkDropListData]="todoTasks"
              (cdkDropListDropped)="dropTask($event, TaskZustand.todo)">
+          <p>To-Do</p>
           <app-task *ngFor="let t of todoTasks"
                     cdkDrag
                     [cdkDragDisabled]="dragAndDropDisabled"
