@@ -21,8 +21,10 @@
 .task__delete-button {
   cursor: pointer;
   height: 22px;
+  width: 22px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .task__delete-icon {
