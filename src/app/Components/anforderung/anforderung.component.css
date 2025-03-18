@@ -48,6 +48,14 @@
   height: 44px;
 }
 
+.status-text {
+  align-self: center;
+  justify-self: center;
+  font-weight: bold;
+  font-size: 2rem;
+  line-height: 0.3rem;
+}
+
 .anforderung__titel {
   font-weight: bold;
   word-break: break-all;
@@ -59,6 +67,8 @@
   margin: 10px;
   max-width: 300px;
   min-width: 300px;
+  color: #3a3a3a;
+  font-size: large;
 }
 
 .anforderung__beschreibung-wrapper {
@@ -128,7 +138,6 @@
   margin-right: 20px;
   margin-bottom: 20px;
   border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .anforderung__tasks-spalte {
@@ -142,11 +151,23 @@
 
 .anforderung__tasks-todo {
   position: relative;
+  border-left: 3px solid rgba(0, 0, 0, 0.1);
   border-right: 3px solid rgba(0, 0, 0, 0.1);
 }
 
 .anforderung__tasks-in-progress {
   border-right: 3px solid rgba(0, 0, 0, 0.1)
+
+}
+
+.anforderung__tasks-status-text {
+  align-self: center;
+  justify-self: center;
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #3a3a3a;
+  line-height: 1px;
+  margin-bottom: 30px;
 }
 
 .anforderung__add-button {
