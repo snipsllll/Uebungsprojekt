@@ -10,6 +10,7 @@ import { FireService } from './fire.service';
 export class DataService {
   anforderungen: IAnforderung[] = [];
   updated = signal<number>(0);
+  completedLoading = signal<boolean>(false);
 
   constructor(private fireService: FireService) {
     this.fireService.getDataFromServer().then(data => {
@@ -19,6 +20,7 @@ export class DataService {
         })
       })
       this.anforderungen = data;
+      this.completedLoading.set(true);
       this.sendUpdate();
     });
   }
