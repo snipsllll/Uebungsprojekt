@@ -9,4 +9,5 @@ export interface ITaskData {
   title: string;
   mitarbeiter?: string;
   zustand: TaskZustand;
+  isTitleInEditMode?: boolean;
 }

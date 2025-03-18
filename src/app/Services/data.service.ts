@@ -13,6 +13,11 @@ export class DataService {
 
   constructor(private fireService: FireService) {
     this.fireService.getDataFromServer().then(data => {
+      data.forEach(anforderung => {
+        anforderung.data.tasks.forEach(task => {
+          task.data.isTitleInEditMode = false;
+        })
+      })
       this.anforderungen = data;
       this.sendUpdate();
     });
@@ -50,7 +55,8 @@ export class DataService {
       data: {
         title: "",
         mitarbeiter: "",
-        zustand: TaskZustand.todo
+        zustand: TaskZustand.todo,
+        isTitleInEditMode: true
       }
     };
 
@@ -118,11 +124,8 @@ export class DataService {
 
   private save(reload?: boolean) {
     this.fireService.saveDataOnServer(this.anforderungen).then(() => {
-      if (true) {
-        this.fireService.getDataFromServer().then(data => {
-          this.anforderungen = data;
-          this.sendUpdate();
-        })
+      if (reload) {
+        this.sendUpdate();
       }
     });
   }

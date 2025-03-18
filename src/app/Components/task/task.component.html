@@ -2,13 +2,15 @@
   <div class="task__top">
     <div class="task__title-wrapper">
       <!-- Titel-Anzeige -->
-      <div class="task__title" *ngIf="!isTitleInEditMode" (click)="enableTitleEdit()">
+      <div class="task__title" *ngIf="!isTitleInEditMode && !task.data.isTitleInEditMode" (click)="enableTitleEdit()">
         {{ task.data.title !== "" ? task.data.title : "Neue Task" }}
       </div>
 
       <!-- Titel-Bearbeitung -->
-      <div class="task__title-edit-wrapper" *ngIf="isTitleInEditMode">
-        <input #titleInput class="task__title-input" [(ngModel)]="task.data.title"
+      <div class="task__title-edit-wrapper" *ngIf="isTitleInEditMode || task.data.isTitleInEditMode">
+        <input #titleInput
+               class="task__title-input"
+               [(ngModel)]="task.data.title"
                (keydown.enter)="onEditBackgroundClicked()">
         <div class="task__edit-background" (click)="onEditBackgroundClicked()"></div>
       </div>
@@ -27,7 +29,9 @@
 
   <!-- Mitarbeiter-Bearbeitung -->
   <div class="task__mitarbeiter-edit-wrapper" *ngIf="isMitarbeiterInEditMode">
-    <input #mitarbeiterInput class="task__mitarbeiter-input" [(ngModel)]="task.data.mitarbeiter"
+    <input #mitarbeiterInput
+           class="task__mitarbeiter-input"
+           [(ngModel)]="task.data.mitarbeiter"
            (keydown.enter)="onEditBackgroundClicked()">
     <div class="task__edit-background" (click)="onEditBackgroundClicked()"></div>
   </div>
