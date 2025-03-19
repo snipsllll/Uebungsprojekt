@@ -1,8 +1,8 @@
-import { Injectable, signal } from '@angular/core';
-import { TaskZustand } from '../Models/Enums/TaskZustand';
-import { ITask } from '../Models/Interfaces/ITask';
-import { IAnforderung, IAnforderungData } from '../Models/Interfaces/IAnforderung';
-import { FireService } from './fire.service';
+import {Injectable, signal} from '@angular/core';
+import {TaskZustand} from '../Models/Enums/TaskZustand';
+import {ITask} from '../Models/Interfaces/ITask';
+import {IAnforderung, IAnforderungData} from '../Models/Interfaces/IAnforderung';
+import {FireService} from './fire.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,203 +10,195 @@ import { FireService } from './fire.service';
 export class DataService {
   anforderungen: IAnforderung[] = [];
   updated = signal<number>(0);
-  completedLoading = signal<boolean>(false);
+  completedLoading = signal<boolean>(true);
+  completedInitialLoading = signal<boolean>(false);
 
   constructor(private fireService: FireService) {
-    this.loadData();
+    this.getConvertedDataFromServer().then(convertedServerData => {
+      this.anforderungen = convertedServerData;
+      this.completedInitialLoading.set(true);
+      this.sendUpdate();
+    })
   }
 
-  /**
-   * 🔥 Lädt die neuesten Daten vom Server
-   */
-  private async loadData() {
-    const serverData = await this.fireService.getDataFromServer();
+  private async getConvertedDataFromServer(): Promise<IAnforderung[]> {
+    let serverData = await this.fireService.getDataFromServer();
+    let convertedServerData = this.convertServerDataToClientData(serverData);
+    return convertedServerData;
+  }
 
-    // Tasks auf Standardwerte setzen (kein Edit-Modus)
-    serverData.forEach(anforderung => {
+  private convertServerDataToClientData(serverData: IAnforderung[]) {
+    return this.getDataWithTaskEditModesToFalse(serverData);
+  }
+
+  private getDataWithTaskEditModesToFalse(data: IAnforderung[]) {
+    data.forEach(anforderung => {
       anforderung.data.tasks.forEach(task => {
         task.data.isTitleInEditMode = false;
       });
     });
 
-    this.anforderungen = serverData;
-    this.completedLoading.set(true);
-    this.sendUpdate();
+    return data;
   }
 
-  /**
-   * 🔥 Fügt eine neue Anforderung hinzu und synchronisiert mit dem Server
-   */
   async addAnforderung(anforderungData: IAnforderungData) {
-    await this.loadData();
-
-    let newAnforderung: IAnforderung = {
-      id: this.getNextFreeAnforderungId(),
-      data: anforderungData
-    };
-
-    this.anforderungen.push(newAnforderung);
-    await this.saveToServer();
-  }
-
-  /**
-   * 🔥 Bearbeitet eine bestehende Anforderung mit Merging
-   */
-  async editAnforderung(anforderung: IAnforderung) {
-    await this.loadData();
-
-    const index = this.anforderungen.findIndex(x => x.id === anforderung.id);
-    if (index !== -1) {
-      this.anforderungen[index] = {
-        ...this.anforderungen[index],
-        data: { ...this.anforderungen[index].data, ...anforderung.data }
+    this.completedLoading.set(false);
+    this.getConvertedDataFromServer().then(convertedServerData => {
+      console.log(convertedServerData)
+      let newAnforderung: IAnforderung = {
+        id: this.getNextFreeAnforderungId(convertedServerData),
+        data: anforderungData
       };
-      await this.saveToServer();
-    }
+      convertedServerData.push(newAnforderung);
+      this.saveToServer(convertedServerData).then(() => {
+        this.anforderungen = convertedServerData;
+        this.sendUpdate();
+        this.completedLoading.set(true);
+      });
+    });
   }
 
-  /**
-   * 🔥 Löscht eine Anforderung
-   */
+  async editAnforderung(anforderung: IAnforderung) {
+    this.completedLoading.set(false);
+    this.getConvertedDataFromServer().then(convertedServerData => {
+      const index = convertedServerData.findIndex(x => x.id === anforderung.id);
+      if (index !== -1) {
+        convertedServerData[index] = {
+          ...convertedServerData[index],
+          data: {...convertedServerData[index].data, ...anforderung.data}
+        };
+      }
+      this.saveToServer(convertedServerData).then(() => {
+        this.anforderungen = convertedServerData;
+        this.sendUpdate();
+        this.completedLoading.set(true);
+      });
+    });
+  }
+
   async deleteAnforderungById(id: number) {
-    await this.loadData();
-    this.anforderungen = this.anforderungen.filter(a => a.id !== id);
-    await this.saveToServer();
+    this.completedLoading.set(false);
+    this.getConvertedDataFromServer().then(convertedServerData => {
+      convertedServerData = convertedServerData.filter(a => a.id !== id);
+      this.saveToServer(convertedServerData).then(() => {
+        this.anforderungen = convertedServerData;
+        this.sendUpdate();
+        this.completedLoading.set(true);
+      });
+    });
   }
 
-  /**
-   * 🔥 Fügt eine neue Aufgabe zu einer Anforderung hinzu
-   */
   async addEmptyTaskToAnforderungByAnforderungId(anforderungId: number) {
-    await this.loadData();
+    this.completedLoading.set(false);
+    this.getConvertedDataFromServer().then(convertedServerData => {
+      let newTask: ITask = {
+        id: this.getNextFreeTaskId(convertedServerData),
+        data: {
+          title: "",
+          mitarbeiter: "",
+          zustand: TaskZustand.todo,
+          isTitleInEditMode: true
+        }
+      };
+      const anforderung = convertedServerData.find(x => x.id === anforderungId);
 
-    let newTask: ITask = {
-      id: this.getNextFreeTaskId(),
-      data: {
-        title: "",
-        mitarbeiter: "",
-        zustand: TaskZustand.todo,
-        isTitleInEditMode: true
+      if (anforderung) {
+        anforderung.data.tasks.push(newTask);
+        this.saveToServer(convertedServerData).then(() => {
+          this.anforderungen = convertedServerData;
+          this.sendUpdate();
+          this.completedLoading.set(true);
+        });
+      } else {
+        this.sendUpdate();
+        this.completedLoading.set(true);
       }
-    };
-
-    const anforderung = this.anforderungen.find(x => x.id === anforderungId);
-    if (anforderung) {
-      anforderung.data.tasks.push(newTask);
-      await this.saveToServer();
-    }
+    });
   }
 
-  /**
-   * 🔥 Bearbeitet eine Aufgabe mit Konfliktmanagement
-   */
   async editTask(editedTask: ITask) {
-    await this.loadData(); // Neueste Daten holen
+    this.completedLoading.set(false);
+    this.getConvertedDataFromServer().then(convertedServerData => {
+      let updated = false;
 
-    let updated = false;
+      convertedServerData.forEach(anforderung => {
+        const taskIndex = anforderung.data.tasks.findIndex(task => task.id === editedTask.id);
+        if (taskIndex !== -1) {
+          anforderung.data.tasks[taskIndex] = {
+            ...anforderung.data.tasks[taskIndex],
+            data: {...anforderung.data.tasks[taskIndex].data, ...editedTask.data}
+          };
+          updated = true;
+        }
+      });
+      console.log(convertedServerData);
 
-    this.anforderungen.forEach(anforderung => {
-      const taskIndex = anforderung.data.tasks.findIndex(task => task.id === editedTask.id);
-      if (taskIndex !== -1) {
-        anforderung.data.tasks[taskIndex] = {
-          ...anforderung.data.tasks[taskIndex],
-          data: { ...anforderung.data.tasks[taskIndex].data, ...editedTask.data }
-        };
-        updated = true;
+      if (updated) {
+        this.saveToServer(convertedServerData).then(() => {
+          this.anforderungen = convertedServerData;
+          this.sendUpdate();
+          this.completedLoading.set(true);
+        });
+      } else {
+        this.sendUpdate();
+        this.completedLoading.set(true);
       }
     });
-
-    if (updated) await this.saveToServer();
   }
 
-  /**
-   * 🔥 Löscht eine Aufgabe ohne Datenverlust
-   */
   async deleteTask(taskId: number) {
-    await this.loadData();
+    let found = false;
+    this.completedLoading.set(false);
+    this.getConvertedDataFromServer().then(convertedServerData => {
+      convertedServerData.forEach(anforderung => {
+        const initialLength = anforderung.data.tasks.length;
+        anforderung.data.tasks = anforderung.data.tasks.filter(task => task.id !== taskId);
 
-    this.anforderungen.forEach(anforderung => {
-      anforderung.data.tasks = anforderung.data.tasks.filter(task => task.id !== taskId);
-    });
-
-    await this.saveToServer();
-  }
-
-  /**
-   * 🔥 Speichert Daten auf dem Server (merged bestehende Daten)
-   */
-  private async saveToServer() {
-    const serverData = await this.fireService.getDataFromServer();
-    const mergedData = this.mergeData(serverData, this.anforderungen);
-    await this.fireService.saveDataOnServer(mergedData);
-    this.sendUpdate();
-  }
-
-  /**
-   * 🔥 Merged Server- und lokale Daten (stellt sicher, dass keine Änderungen verloren gehen)
-   */
-  private mergeData(serverData: IAnforderung[], localData: IAnforderung[]): IAnforderung[] {
-    const mergedData = [...serverData];
-
-    localData.forEach(localAnforderung => {
-      const existingAnforderung = mergedData.find(a => a.id === localAnforderung.id);
-      if (existingAnforderung) {
-        // Mergen der Felder und Tasks
-        existingAnforderung.data = {
-          ...existingAnforderung.data,
-          ...localAnforderung.data,
-          tasks: this.mergeTasks(existingAnforderung.data.tasks, localAnforderung.data.tasks)
-        };
+        if (anforderung.data.tasks.length < initialLength) {
+          found = true;
+        }
+      });
+      if(found) {
+        this.saveToServer(convertedServerData, true).then(() => {
+          this.anforderungen = convertedServerData;
+          this.sendUpdate();
+          this.completedLoading.set(true);
+        });
       } else {
-        mergedData.push(localAnforderung);
+        this.sendUpdate();
+        this.completedLoading.set(true);
       }
-    });
 
-    return mergedData;
+    });
   }
 
-  /**
-   * 🔥 Merged die Tasks einer Anforderung (verhindert Überschreiben)
-   */
-  private mergeTasks(serverTasks: ITask[], localTasks: ITask[]): ITask[] {
-    const mergedTasks = [...serverTasks];
-
-    localTasks.forEach(localTask => {
-      const existingTask = mergedTasks.find(t => t.id === localTask.id);
-      if (existingTask) {
-        existingTask.data = {
-          ...existingTask.data,
-          ...localTask.data
-        };
-      } else {
-        mergedTasks.push(localTask);
-      }
+  private async saveToServer(data?: IAnforderung[], override?: boolean) {
+    this.fireService.saveDataOnServer(data ?? this.anforderungen, override).then(() => {
+      this.sendUpdate();
     });
-
-    return mergedTasks;
   }
 
-  /**
-   * 🔥 Holt die nächste freie Anforderungs-ID
-   */
-  private getNextFreeAnforderungId(): number {
+  private sendUpdate() {
+    this.updated.set(this.updated() + 1);
+  }
+
+  private getNextFreeAnforderungId(data?: IAnforderung[]): number {
+    if (data) {
+      if (data.length === 0) return 1;
+      return Math.max(...data.map(a => a.id), 0) + 1;
+    }
     if (this.anforderungen.length === 0) return 1;
     return Math.max(...this.anforderungen.map(a => a.id), 0) + 1;
   }
 
-  /**
-   * 🔥 Holt die nächste freie Task-ID
-   */
-  private getNextFreeTaskId(): number {
+  private getNextFreeTaskId(data?: IAnforderung[]): number {
+    if (data) {
+      let tasks = data.flatMap(a => a.data.tasks);
+      if (tasks.length === 0) return 1;
+      return Math.max(...tasks.map(t => t.id), 0) + 1;
+    }
     let tasks = this.anforderungen.flatMap(a => a.data.tasks);
     if (tasks.length === 0) return 1;
     return Math.max(...tasks.map(t => t.id), 0) + 1;
-  }
-
-  /**
-   * 🔥 Sendet ein Update-Signal für die UI
-   */
-  private sendUpdate() {
-    this.updated.set(this.updated() + 1);
   }
 }

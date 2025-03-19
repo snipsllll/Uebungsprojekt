@@ -26,6 +26,9 @@ export class AppComponent {
   isLoading = computed(() => {
     return !this.dataService.completedLoading();
   });
+  isInitialLoading = computed(() => {
+    return !this.dataService.completedInitialLoading();
+  });
 
   constructor(protected dialogService: DialogService, private dataService: DataService) {
 

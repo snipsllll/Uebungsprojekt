@@ -1,5 +1,6 @@
-<app-taskboard *ngIf="!isLoading()"></app-taskboard>
-<app-loading *ngIf="isLoading()"></app-loading>
+<img src="assets/task-loading.webp" *ngIf="isLoading()">
+<app-taskboard *ngIf="!isInitialLoading()"></app-taskboard>
+<app-loading *ngIf="isInitialLoading()"></app-loading>
 
 <app-confirm-dialog [viewModel]="dialogService.confirmDialogViewModel" class="confirm-dialog" *ngIf="dialogService.isConfirmDialogVisible">
 
