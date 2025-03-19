@@ -1,4 +1,4 @@
-<img src="assets/task-loading.webp" *ngIf="isLoading()">
+<app-loading-bar class="taskboard__loading-bar" *ngIf="isLoading()"></app-loading-bar>
 <app-taskboard *ngIf="!isInitialLoading()"></app-taskboard>
 <app-loading *ngIf="isInitialLoading()"></app-loading>
 

@@ -5,12 +5,14 @@ import {DialogService} from '../../Services/dialog.service';
 import {AnforderungDialogViewModel} from '../../Models/ViewModels/AnforderungDialogViewModel';
 import {AnforderungComponent} from '../anforderung/anforderung.component';
 import {NgForOf} from '@angular/common';
+import {LoadingBarComponent} from '../loading-bar/loading-bar.component';
 
 @Component({
   selector: 'app-taskboard',
   imports: [
     AnforderungComponent,
-    NgForOf
+    NgForOf,
+    LoadingBarComponent
   ],
   templateUrl: './taskboard.component.html',
   styleUrl: './taskboard.component.css'
