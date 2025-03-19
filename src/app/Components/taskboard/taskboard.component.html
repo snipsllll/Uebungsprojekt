@@ -5,4 +5,7 @@
   <div class="taskboard__add-button" (click)="onBtnAddAnforderungClicked()">
     +
   </div>
+  <div class="taskboard__keine-anforderungen" *ngIf="anforderungen().length === 0">
+    Erstelle deine erste Anforderung mit +
+  </div>
 </div>

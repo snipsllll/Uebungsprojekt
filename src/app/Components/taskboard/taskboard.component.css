@@ -32,3 +32,13 @@
 .taskboard__add-button:hover {
   font-size: 45px;
 }
+
+.taskboard__keine-anforderungen {
+  width: 100%;
+  height: 95vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  color: #878787;
+}
