@@ -23,8 +23,7 @@ export class DataService {
 
   private async getConvertedDataFromServer(): Promise<IAnforderung[]> {
     let serverData = await this.fireService.getDataFromServer();
-    let convertedServerData = this.convertServerDataToClientData(serverData);
-    return convertedServerData;
+    return this.convertServerDataToClientData(serverData);
   }
 
   private convertServerDataToClientData(serverData: IAnforderung[]) {

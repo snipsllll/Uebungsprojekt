@@ -1,9 +1,7 @@
-import { Injectable } from '@angular/core';
-import { IAnforderung } from '../Models/Interfaces/IAnforderung';
-import { IFireData } from '../Models/Interfaces/IFireData';
-import { Firestore, collection, doc, getDocs, updateDoc, setDoc } from '@angular/fire/firestore';
-import {TaskZustand} from '../Models/Enums/TaskZustand';
-import {ITask} from '../Models/Interfaces/ITask';
+import {Injectable} from '@angular/core';
+import {IAnforderung} from '../Models/Interfaces/IAnforderung';
+import {IFireData} from '../Models/Interfaces/IFireData';
+import {collection, doc, Firestore, getDocs, setDoc, updateDoc} from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
