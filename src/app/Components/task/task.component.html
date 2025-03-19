@@ -17,8 +17,13 @@
     </div>
 
     <!-- Löschen-Button -->
-    <div class="task__delete-button" (click)="onBtnDeleteClicked()">
+    <div class="task__delete-button" (click)="onBtnDeleteClicked()" *ngIf="!isTaskLoading">
       <img src="assets/delete.png" class="task__delete-icon" alt="x">
+    </div>
+
+    <!-- Loading-Animation -->
+    <div class="task__loading-animation" *ngIf="isTaskLoading">
+      <img src="assets/task-loading.webp" class="task__delete-icon" alt="x">
     </div>
   </div>
 

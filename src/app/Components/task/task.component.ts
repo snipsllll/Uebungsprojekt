@@ -20,6 +20,7 @@ export class TaskComponent implements AfterViewInit {
 
   isTitleInEditMode = false;
   isMitarbeiterInEditMode = false;
+  isTaskLoading = false;
 
   @ViewChild('titleInput') titleInput!: ElementRef;
   @ViewChild('mitarbeiterInput') mitarbeiterInput!: ElementRef;
@@ -70,6 +71,9 @@ export class TaskComponent implements AfterViewInit {
   }
 
   onBtnDeleteClicked() {
-    this.dataService.deleteTask(this.task.id);
+    this.isTaskLoading = true;
+    this.dataService.deleteTask(this.task.id).then(() => {
+      this.isTaskLoading = false;
+    });
   }
 }

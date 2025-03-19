@@ -7,6 +7,7 @@ import {TaskboardComponent} from './Components/taskboard/taskboard.component';
 import {LoadingComponent} from './Components/loading/loading.component';
 import {NgIf} from '@angular/common';
 import {DataService} from './Services/data.service';
+import {LoadingBarComponent} from './Components/loading-bar/loading-bar.component';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ import {DataService} from './Services/data.service';
     ConfirmDialogComponent,
     TaskboardComponent,
     LoadingComponent,
-    NgIf
+    NgIf,
+    LoadingBarComponent
   ],
   styleUrl: './app.component.css'
 })
@@ -25,6 +27,9 @@ export class AppComponent {
   title = 'Uebungsprojekt';
   isLoading = computed(() => {
     return !this.dataService.completedLoading();
+  });
+  isInitialLoading = computed(() => {
+    return !this.dataService.completedInitialLoading();
   });
 
   constructor(protected dialogService: DialogService, private dataService: DataService) {
