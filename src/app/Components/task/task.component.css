@@ -12,8 +12,10 @@
   min-width: 120px;
   margin-bottom: 3px;
 }
+
 .task__title {
   width: 100%;
+  word-break: break-all;
 }
 
 .task__mitarbeiter {
@@ -87,4 +89,27 @@
 .task__mitarbeiter-input {
   position: relative;
   z-index: 20;
+}
+
+@media (max-width: 800px) {
+  .task {
+    font-family: 'Century Gothic', Arial, sans-serif;
+    background-color: #A3B7CC;
+    color: #3a3a3a;
+    flex-grow: 1;
+    min-height: 50px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    min-width: 100px;
+    margin-bottom: 3px;
+  }
+
+  .task__mitarbeiter {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+  }
 }

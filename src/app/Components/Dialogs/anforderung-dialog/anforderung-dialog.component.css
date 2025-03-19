@@ -28,6 +28,7 @@ textarea {
 }
 
 .dialog {
+  max-width: 80vw;
   position: fixed;
   font-family: Arial, sans-serif;
   background-color: #eaeaea;

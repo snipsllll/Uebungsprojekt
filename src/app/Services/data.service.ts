@@ -43,7 +43,6 @@ export class DataService {
   async addAnforderung(anforderungData: IAnforderungData) {
     this.completedLoading.set(false);
     this.getConvertedDataFromServer().then(convertedServerData => {
-      console.log(convertedServerData)
       let newAnforderung: IAnforderung = {
         id: this.getNextFreeAnforderungId(convertedServerData),
         data: anforderungData
@@ -130,7 +129,6 @@ export class DataService {
           updated = true;
         }
       });
-      console.log(convertedServerData);
 
       if (updated) {
         this.saveToServer(convertedServerData).then(() => {
@@ -167,12 +165,14 @@ export class DataService {
         this.sendUpdate();
         this.completedLoading.set(true);
       }
-
     });
   }
 
   private async saveToServer(data?: IAnforderung[], override?: boolean) {
+    this.completedLoading.set(false);
     this.fireService.saveDataOnServer(data ?? this.anforderungen, override).then(() => {
+      this.completedLoading.set(true);
+      console.log(3)
       this.sendUpdate();
     });
   }

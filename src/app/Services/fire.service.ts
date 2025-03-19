@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {IAnforderung} from '../Models/Interfaces/IAnforderung';
 import {IFireData} from '../Models/Interfaces/IFireData';
 import {collection, doc, Firestore, getDocs, setDoc, updateDoc} from '@angular/fire/firestore';
+import {TaskZustand} from '../Models/Enums/TaskZustand';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,6 @@ export class FireService {
   constructor(private firestore: Firestore) { }
 
   async saveDataOnServer(dataToAdd: IAnforderung[], override?: boolean): Promise<void> {
-    console.log(dataToAdd)
     console.log("...saving data on server");
     const collectionRef = collection(this.firestore, `data`);
 
@@ -42,6 +42,7 @@ export class FireService {
   }
 
   async getDataFromServer(): Promise<IAnforderung[]> {
+    //return this.generateAnforderungen(100, 1000);
     console.log("...downloading fireData")
 
     const collectionRef = collection(this.firestore, `data`);
@@ -59,5 +60,56 @@ export class FireService {
       console.error(`Error while downloading data from server!`, error);
       return [];
     }
+  }
+
+  generateAnforderungen(anzahlAnforderungen: number, anzahlTasksIngesamt: number) {
+    const anforderungen = [];
+    let taskIdCounter = 1; // ID für Tasks
+
+    const beispielTitel = ["MIAU sagen", "Nochmal MIAU sagen"];
+    const beispielBeschreibungen = ["Noah braucht mehr MIAU's in seiner Fresse!"
+    ];
+    const beispielTasks = ["MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","MIAU", "miau", "MIAAAAAAAUUUUUU!!!!", "MEOW^-^", "MIAUU","MIIIAUUUU","miauuu","meow","meoooow","muhhhh"];
+    const beispielMitarbeiter = ["David"];
+
+    // 1. Anforderungen erstellen
+    for (let i = 0; i < anzahlAnforderungen; i++) {
+      const anforderung = {
+        id: i + 1,
+        data: {
+          title: beispielTitel[i % beispielTitel.length], // Titel aus Liste rotieren
+          beschreibung: beispielBeschreibungen[i % beispielBeschreibungen.length], // Beschreibung aus Liste rotieren
+          tasks: []
+        }
+      };
+
+      anforderungen.push(anforderung);
+    }
+
+    // 2. Tasks gleichmäßig auf die Anforderungen verteilen
+    for (let i = 0; i < anzahlTasksIngesamt; i++) {
+      const zufallsAnforderung: IAnforderung = anforderungen[Math.floor(Math.random() * anforderungen.length)]; // Zufällige Anforderung
+      const task = {
+        id: taskIdCounter++,
+        data: {
+          title: beispielTasks[i % beispielTasks.length], // Zufälliger Task-Titel
+          mitarbeiter: beispielMitarbeiter[i % beispielMitarbeiter.length], // Zufälliger Mitarbeiter
+          zustand: this.getRandomTaskZustand(), // Jetzt mit richtiger Enum-Zuweisung
+          isTitleInEditMode: false
+        }
+      };
+
+      zufallsAnforderung.data.tasks.push(task);
+    }
+
+    return anforderungen;
+  }
+
+  /**
+   * Wählt ein zufälliges Element aus dem TaskZustand-Enum
+   */
+  getRandomTaskZustand(): TaskZustand {
+    const values = Object.values(TaskZustand).filter(value => typeof value === "number") as TaskZustand[];
+    return values[Math.floor(Math.random() * values.length)];
   }
 }

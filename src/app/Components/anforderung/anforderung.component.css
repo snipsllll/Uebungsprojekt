@@ -140,6 +140,7 @@
   margin-right: 20px;
   margin-bottom: 20px;
   border-radius: 5px;
+  position: relative;
 }
 
 .anforderung__tasks-spalte {
@@ -152,7 +153,6 @@
 }
 
 .anforderung__tasks-todo {
-  position: relative;
   border-left: 3px solid rgba(0, 0, 0, 0.1);
   border-right: 3px solid rgba(0, 0, 0, 0.1);
 }
@@ -208,5 +208,54 @@
   height: 50px; /* Höhe anpassen, um die Position in der Spalte zu simulieren */
   background: rgba(0, 0, 0, 0.1); /* Halbtransparent für eine bessere Vorschau */
   border-radius: 5px;
+}
+
+@media (max-width: 800px) {
+  .anforderung__tasks-zustaende-wrapper {
+    margin: 10px;
+  }
+
+  .anforderung__beschreibung-wrapper {
+    display: block;
+  }
+
+  .anforderung__tasks-status-text {
+    align-self: center;
+    justify-self: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #3a3a3a;
+    line-height: 1px;
+    margin-bottom: 30px;
+  }
+
+  .anforderung__add-button {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(140, 4, 16, 1);;
+    margin: 5px;
+    margin-top: 10px;
+    display: flex;
+    justify-self: flex-end;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    font-weight: bold;
+    color: #f3f3f3;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+  }
+
+  .anforderung__tasks-in-progress, .anforderung__tasks-todo {
+    height: auto;
+  }
+
+  .anforderung__tasks-todo {
+    border-left: none;
+  }
 }
 

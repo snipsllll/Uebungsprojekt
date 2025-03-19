@@ -74,3 +74,9 @@
   cursor: pointer;
   color: #f3f3f3;
 }
+
+@media (max-width: 800px) {
+  .dialog {
+    width: 80vw;
+  }
+}
