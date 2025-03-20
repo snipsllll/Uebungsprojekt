@@ -26,7 +26,7 @@ const deploy = true;
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideFirebaseApp(() => initializeApp(deploy ? firebaseConfigDeployed ? firebaseConfigDevelop)),
+    provideFirebaseApp(() => initializeApp(deploy ? firebaseConfigDeployed : firebaseConfigDevelop)),
     provideFirestore(() => getFirestore()) // 🔥 Firestore als Provider hinzufügen
   ]
 };
