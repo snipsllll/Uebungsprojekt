@@ -4,13 +4,14 @@ import {DataService} from '../../Services/data.service';
 import {DialogService} from '../../Services/dialog.service';
 import {AnforderungDialogViewModel} from '../../Models/ViewModels/AnforderungDialogViewModel';
 import {AnforderungComponent} from '../anforderung/anforderung.component';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-taskboard',
   imports: [
     AnforderungComponent,
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './taskboard.component.html',
   styleUrl: './taskboard.component.css'
