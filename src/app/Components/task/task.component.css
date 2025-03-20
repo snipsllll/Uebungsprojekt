@@ -9,7 +9,6 @@
   flex-direction: column;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  min-width: 120px;
   margin-bottom: 3px;
 }
 
@@ -103,7 +102,7 @@
     flex-direction: column;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    min-width: 100px;
+    width: calc(100% - 20px);
     margin-bottom: 3px;
   }
 

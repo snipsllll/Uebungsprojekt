@@ -6,7 +6,7 @@ body {
   align-items: flex-start;
   user-select: none;
 }
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .mein-element {
     width: 100%; /* Nimmt die volle Breite */
     font-size: 14px; /* Kleinere Schrift */
