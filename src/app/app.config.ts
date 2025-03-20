@@ -3,7 +3,7 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 // Firebase-Konfiguration
-const firebaseConfigDeployed = {
+const firebaseConfigProduction = {
   apiKey: "AIzaSyDZvjeHdVKyWw6CPqu7x-MwM-lho3Fqx7s",
   authDomain: "uebungsprojekt-deployed.firebaseapp.com",
   projectId: "uebungsprojekt-deployed",
@@ -21,12 +21,12 @@ const firebaseConfigDevelop = {
   appId: "1:1013875983053:web:4190360a80226652449f84"
 };
 
-const deploy = true;
+const develop = true;
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideFirebaseApp(() => initializeApp(deploy ? firebaseConfigDeployed : firebaseConfigDevelop)),
+    provideFirebaseApp(() => initializeApp(develop ? firebaseConfigDevelop : firebaseConfigProduction)),
     provideFirestore(() => getFirestore()) // 🔥 Firestore als Provider hinzufügen
   ]
 };
