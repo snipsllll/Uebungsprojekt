@@ -1,10 +1,13 @@
 <div class="overlay">
   <div class="dialog">
+    <div class="dialog__label">
+      Neue Anforderung
+    </div>
     <div class="title">
-      <textarea [(ngModel)]="viewModel!.anforderung!.data.title"></textarea>
+      <textarea class="dialog__input" placeholder="Titel" [(ngModel)]="viewModel!.anforderung!.data.title"></textarea>
     </div>
     <div class="content">
-      <textarea [(ngModel)]="viewModel!.anforderung!.data.beschreibung"></textarea>
+      <textarea class="dialog__input" placeholder="Beschreibung" [(ngModel)]="viewModel!.anforderung!.data.beschreibung"></textarea>
     </div>
     <div class="buttons">
       <button class="speichern" (click)="onBtnSaveClicked()">speichern</button>
