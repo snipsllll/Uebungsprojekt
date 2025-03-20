@@ -21,7 +21,7 @@ const firebaseConfigDevelop = {
   appId: "1:1013875983053:web:4190360a80226652449f84"
 };
 
-const develop = true;
+const develop = false;
 
 export const appConfig: ApplicationConfig = {
   providers: [
