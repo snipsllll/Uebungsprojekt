@@ -24,7 +24,7 @@ export class DataService {
       console.error('Fehler beim Laden der Daten:', error);
     } finally {
       this.isLoadingInitial.set(false);
-      this.sendUpdate();
+      this.update();
     }
   }
 
@@ -44,8 +44,8 @@ export class DataService {
       data: {
         ...anforderung.data,
         tasks: anforderung.data.tasks.map(task => ({
-          ...task,
-          data: { ...task.data, isTitleInEditMode: false }
+          id: task.id === -1 ? this.getNextFreeTaskId(data) : task.id,
+          data: { ...task.data, isTitleInEditMode: task.data.isTitleInEditMode }
         }))
       }
     }));
@@ -58,8 +58,10 @@ export class DataService {
       const newAnforderung: IAnforderung = { id: this.getNextFreeId(convertedData), data: anforderungData };
       convertedData.push(newAnforderung);
       await this.saveToServer(convertedData);
+      this.anforderungen = await this.getConvertedDataFromServer();
     } finally {
       this.completedLoading.set(true);
+      this.update();
     }
   }
 
@@ -70,8 +72,10 @@ export class DataService {
       const index = convertedData.findIndex(x => x.id === anforderung.id);
       if (index !== -1) convertedData[index] = { ...convertedData[index], data: { ...anforderung.data } };
       await this.saveToServer(convertedData);
+      this.anforderungen = await this.getConvertedDataFromServer();
     } finally {
       this.completedLoading.set(true);
+      this.update();
     }
   }
 
@@ -81,22 +85,44 @@ export class DataService {
       let convertedData = await this.getConvertedDataFromServer();
       convertedData = convertedData.filter(a => a.id !== id);
       await this.saveToServer(convertedData);
+      this.anforderungen = await this.getConvertedDataFromServer();
     } finally {
       this.completedLoading.set(true);
+      this.update();
     }
   }
 
   async addEmptyTaskToAnforderungByAnforderungId(anforderungId: number) {
+    let localAnforderung = this.anforderungen.find(x => x.id === anforderungId);
+    if(localAnforderung){
+      localAnforderung.data.tasks.push({ id: -1, data: { title: '', mitarbeiter: '', zustand: TaskZustand.todo, isTitleInEditMode: true } });
+      this.sendUpdate();
+    }
+    console.log(this.anforderungen)
+  }
+
+  async saveNewTask(task: ITask) {
+    let anforderungId = -1;
+    this.anforderungen.forEach(anf => {
+      if(anf.data.tasks.find(t => t.id === task.id)){
+        anforderungId = anf.id;
+      }
+    })
     this.completedLoading.set(false);
     try {
+      let updated = false;
       const convertedData = await this.getConvertedDataFromServer();
-      const anforderung = convertedData.find(x => x.id === anforderungId);
-      if (anforderung) {
-        anforderung.data.tasks.push({ id: this.getNextFreeTaskId(convertedData), data: { title: '', mitarbeiter: '', zustand: TaskZustand.todo, isTitleInEditMode: true } });
-        await this.saveToServer(convertedData);
-      }
+      convertedData.forEach(anforderung => {
+        if (anforderung.id === anforderungId && !updated) {
+         anforderung.data.tasks.push(task);
+         updated = true;
+        }
+      });
+      await this.saveToServer(convertedData);
+      this.anforderungen = await this.getConvertedDataFromServer();
     } finally {
       this.completedLoading.set(true);
+      this.update();
     }
   }
 
@@ -108,13 +134,15 @@ export class DataService {
       convertedData.forEach(anforderung => {
         const taskIndex = anforderung.data.tasks.findIndex(task => task.id === editedTask.id);
         if (taskIndex !== -1) {
-          anforderung.data.tasks[taskIndex] = { ...anforderung.data.tasks[taskIndex], data: { ...editedTask.data } };
+          anforderung.data.tasks[taskIndex] = { ...anforderung.data.tasks[taskIndex], data: { ...editedTask.data, isTitleInEditMode: false } };
           updated = true;
         }
       });
       if (updated) await this.saveToServer(convertedData);
+      this.anforderungen = await this.getConvertedDataFromServer();
     } finally {
       this.completedLoading.set(true);
+      this.update();
     }
   }
 
@@ -126,8 +154,10 @@ export class DataService {
         anforderung.data.tasks = anforderung.data.tasks.filter(task => task.id !== taskId);
       });
       await this.saveToServer(convertedData);
+      this.anforderungen = await this.getConvertedDataFromServer();
     } finally {
       this.completedLoading.set(true);
+      this.update();
     }
   }
 
@@ -135,12 +165,17 @@ export class DataService {
     this.completedLoading.set(false);
     try {
       await this.fireService.saveDataOnServer(data);
+      this.anforderungen = await this.getConvertedDataFromServer();
     } catch (error) {
       console.error('Fehler beim Speichern der Daten:', error);
     } finally {
       this.completedLoading.set(true);
-      this.sendUpdate();
+      this.update();
     }
+  }
+
+  private update() {
+    this.updated.set(this.updated() + 1);
   }
 
   private sendUpdate() {

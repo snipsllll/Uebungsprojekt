@@ -42,7 +42,7 @@ export class FireService {
   }
 
   async getDataFromServer(): Promise<IAnforderung[]> {
-    //return this.generateAnforderungen(3, 20);
+    //return this.generateAnforderungen(0, 0);
     console.log("...downloading fireData")
 
     const collectionRef = collection(this.firestore, `data`);
