@@ -4,6 +4,9 @@
   </app-anforderung>
   <div class="taskboard__add-button" (click)="onBtnAddAnforderungClicked()">
     +
+    <div class="tooltip-container">
+      <span class="tooltip-text">Neue Anforderung erstellen</span>
+    </div>
   </div>
   <div class="taskboard__keine-anforderungen" *ngIf="anforderungen().length === 0">
     Erstelle deine erste Anforderung mit +
