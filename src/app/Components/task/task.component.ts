@@ -66,8 +66,13 @@ export class TaskComponent implements AfterViewInit {
   onEditBackgroundClicked() {
     this.isTitleInEditMode = false;
     this.isMitarbeiterInEditMode = false;
+    this.task.data.isTitleInEditMode = false;
     this.isInEditMode.emit(false);
-    this.afterTaskChanged();
+    if(this.task.id === -1) {
+      this.dataService.saveNewTask(this.task);
+    } else {
+      this.afterTaskChanged();
+    }
   }
 
   onBtnDeleteClicked() {

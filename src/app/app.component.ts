@@ -29,7 +29,7 @@ export class AppComponent {
     return !this.dataService.completedLoading();
   });
   isInitialLoading = computed(() => {
-    return !this.dataService.completedInitialLoading();
+    return this.dataService.isLoadingInitial();
   });
 
   constructor(protected dialogService: DialogService, private dataService: DataService) {
