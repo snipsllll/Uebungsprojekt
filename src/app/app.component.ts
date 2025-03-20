@@ -24,7 +24,7 @@ import {LoadingBarComponent} from './Components/loading-bar/loading-bar.componen
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Uebungsprojekt';
+  title = 'Taskboard';
   isLoading = computed(() => {
     return !this.dataService.completedLoading();
   });

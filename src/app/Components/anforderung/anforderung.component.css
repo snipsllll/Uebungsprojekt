@@ -188,6 +188,7 @@
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   cursor: pointer;
+  position: relative;
 }
 
 .anforderung__add-button:hover {
@@ -209,6 +210,60 @@
   background: rgba(0, 0, 0, 0.1); /* Halbtransparent für eine bessere Vorschau */
   border-radius: 5px;
 }
+
+.tooltip-text {
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 300px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.anforderung__add-button:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-container {
+  position: absolute;
+  display: inline-block;
+  bottom: 35px;
+  height: 30px;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  padding: 6px 10px;
+  border-radius: 6px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, visibility 0s linear 0.5s;
+  pointer-events: none;
+}
+
+/* Verzögerte Anzeige des Tooltips */
+.anforderung__add-button:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0.5s;
+}
+
 
 @media (max-width: 900px) {
   .anforderung__beschreibung-wrapper {
