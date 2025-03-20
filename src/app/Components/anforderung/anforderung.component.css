@@ -210,23 +210,29 @@
   border-radius: 5px;
 }
 
-@media (max-width: 800px) {
-  .anforderung__tasks-zustaende-wrapper {
-    margin: 10px;
-  }
-
+@media (max-width: 900px) {
   .anforderung__beschreibung-wrapper {
     display: block;
   }
+}
+
+@media (max-width: 550px) {
 
   .anforderung__tasks-status-text {
     align-self: center;
     justify-self: center;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: bold;
     color: #3a3a3a;
     line-height: 1px;
     margin-bottom: 30px;
+  }
+}
+
+
+@media (max-width: 800px) {
+  .anforderung__tasks-zustaende-wrapper {
+    margin: 10px;
   }
 
   .anforderung__add-button {
